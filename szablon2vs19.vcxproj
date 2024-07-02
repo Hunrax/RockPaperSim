@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="Simulation.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>

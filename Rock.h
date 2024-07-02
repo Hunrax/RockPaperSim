@@ -9,6 +9,7 @@ public:
 		yPosition = y;
 		image = SDL_LoadBMP("./images/rock.bmp");
 		type = ROCK;
+		direction = (rand() % 4) * 90 + 45;
 	}
 };
 

@@ -6,6 +6,8 @@
 #include <ctime>
 #include <cmath>
 #include <vector>
+#include <iostream>
+#include <fstream>
 
 extern "C" {
 #include"./SDL2-2.0.10/include/SDL.h"
@@ -18,3 +20,5 @@ extern "C" {
 #define OBJECT_SIZE 40
 
 #define OBJECT_AMOUNT 5
+
+#define TIMESPEED 3.5

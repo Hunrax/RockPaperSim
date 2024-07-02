@@ -9,6 +9,7 @@ public:
 		yPosition = y;
 		image = SDL_LoadBMP("./images/paper.bmp");
 		type = PAPER;
+		direction = (rand() % 4) * 90 + 45;
 	}
 };
 

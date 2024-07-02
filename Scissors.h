@@ -9,6 +9,7 @@ public:
 		yPosition = y;
 		image = SDL_LoadBMP("./images/scissors.bmp");
 		type = SCISSORS;
+		direction = (rand() % 4) * 90 + 45;
 	}
 };
 

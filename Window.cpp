@@ -33,7 +33,7 @@ Window::Window()
 		SDL_TEXTUREACCESS_STREAMING,
 		SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	SDL_ShowCursor(SDL_DISABLE);
+	SDL_ShowCursor(SDL_ENABLE);
 
 	charset = SDL_LoadBMP("./images/cs8x8.bmp");
 	if (charset == NULL)
@@ -48,22 +48,38 @@ bool Window::run()
 {
 	simulation = new Simulation(OBJECT_AMOUNT, OBJECT_AMOUNT, OBJECT_AMOUNT);
 	simulation->startSimulation();
-	DrawRectangle(screen, 0, 0, 960, 720, ALMOND, ALMOND); 
+
+	int t1 = SDL_GetTicks();
+	double worldTime = 0;
 
 	exitGame = false;
 	while (!exitGame)
 	{	
+		DrawRectangle(screen, 0, 0, 960, 720, ALMOND, ALMOND);
+
+		int t2 = SDL_GetTicks();
+
+		double delta = (t2 - t1) * 0.001;
+		t1 = t2;
+
+		worldTime += delta;
+
+		for (int i = 0; i < simulation->objects.size(); i++)
+		{
+			simulation->objects[i].move(delta);
+			DrawSurface(screen, simulation->objects[i].image, simulation->objects[i].xPosition, simulation->objects[i].yPosition);
+		}
+
+		char text[128];
+		DrawRectangle(screen, 4, 4, 120, 20, ALMOND, NAVY);
+		sprintf(text, "TIME: %.1lf s", worldTime);
+		DrawString(screen, 10, 10, text, charset);
 
 		SDL_UpdateTexture(scrtex, NULL, screen->pixels, screen->pitch);
 		SDL_RenderCopy(renderer, scrtex, NULL, NULL);
 		SDL_RenderPresent(renderer);
 
-		for (Object object : simulation->objects)
-		{
-			DrawSurface(screen, object.image, object.xPosition, object.yPosition);
-		}
-
-		SDL_Event event; // EVENTY
+		SDL_Event event;
 
 		while (SDL_PollEvent(&event))
 		{
@@ -72,6 +88,14 @@ bool Window::run()
 			case SDL_KEYDOWN:
 				if (event.key.keysym.sym == SDLK_ESCAPE)
 					exitGame = 1;
+
+			case SDL_WINDOWEVENT:
+				switch (event.window.event) 
+				{
+				case SDL_WINDOWEVENT_CLOSE:
+					exitGame = 1;
+					break;
+				}
 			}
 		}
 	}
@@ -85,6 +109,8 @@ void Window::quit()
 		SDL_FreeSurface(charset);
 	if (screen)
 		SDL_FreeSurface(screen);
+	if (icon)
+		SDL_FreeSurface(icon);
 	if(scrtex)
 		SDL_DestroyTexture(scrtex);
 	if (renderer)
