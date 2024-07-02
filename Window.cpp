@@ -46,7 +46,7 @@ Window::Window()
 
 bool Window::run()
 {
-	simulation = new Simulation(5, 5, 5);
+	simulation = new Simulation(OBJECT_AMOUNT, OBJECT_AMOUNT, OBJECT_AMOUNT);
 	simulation->startSimulation();
 
 	int t1 = SDL_GetTicks();

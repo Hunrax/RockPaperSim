@@ -2,9 +2,29 @@
 
 void Simulation::generateObject(ObjectType type)
 {
-	int y = rand() % (SCREEN_HEIGHT - 2 * OBJECT_SIZE) + OBJECT_SIZE;
-	int x = rand() % (SCREEN_WIDTH - 2 * OBJECT_SIZE) + OBJECT_SIZE;
-	
+	bool correctCoordinates = false;
+
+	int x, y;
+	while (correctCoordinates == false)
+	{
+		y = rand() % (SCREEN_HEIGHT - 2 * OBJECT_SIZE) + OBJECT_SIZE;
+		x = rand() % (SCREEN_WIDTH - 2 * OBJECT_SIZE) + OBJECT_SIZE;
+
+		if (objects.size() > 1)
+		{
+			for (int i = 0; i < objects.size(); i++)
+			{
+				if (abs((objects[i].xPosition - x)) + abs((objects[i].yPosition - y)) < OBJECT_SIZE * (OBJECT_SIZE / (OBJECT_AMOUNT * 3)))
+				{
+					correctCoordinates = false;
+					break;
+				}
+				correctCoordinates = true;
+			}
+		}
+		else
+			correctCoordinates = true;
+	}
 	objects.push_back(Object(x, y, type));
 }
 
