@@ -46,7 +46,7 @@ Window::Window()
 
 bool Window::run()
 {
-	simulation = new Simulation(OBJECT_AMOUNT, OBJECT_AMOUNT, OBJECT_AMOUNT);
+	simulation = new Simulation(5, 5, 0);
 	simulation->startSimulation();
 
 	int t1 = SDL_GetTicks();
@@ -67,6 +67,7 @@ bool Window::run()
 		for (int i = 0; i < simulation->objects.size(); i++)
 		{
 			simulation->objects[i].move();
+			simulation->checkCollisions(&(simulation->objects[i]), i);
 			DrawSurface(screen, simulation->objects[i].image, simulation->objects[i].xPosition, simulation->objects[i].yPosition);
 		}
 

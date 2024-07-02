@@ -79,24 +79,3 @@ void DrawRectangle(SDL_Surface* screen, int x, int y, int l, int k,
 	for (i = y + 1; i < y + k - 1; i++)
 		DrawLine(screen, x + 1, i, l - 2, 1, 0, fillColor);
 }
-
-bool IsPointInRect(int pointX, int pointY, int minX, int maxX, int minY, int maxY)
-{
-	if (pointX > minX && pointX < maxX && pointY > minY && pointY < maxY)
-		return true;
-	return false;
-}
-
-bool HitboxFunction(int fMiddleX, int fMiddleY, int fSizeX, int fSizeY, int sMiddleX, int sMiddleY, int sSizeX, int sSizeY)
-{
-	if (IsPointInRect(fMiddleX - fSizeX / 2, fMiddleY - fSizeY / 2, sMiddleX - sSizeX / 2, sMiddleX + sSizeX / 2, sMiddleY - sSizeY / 2, sMiddleY + sSizeY / 2))
-		return true;
-	if (IsPointInRect(fMiddleX + fSizeX / 2, fMiddleY + fSizeY / 2, sMiddleX - sSizeX / 2, sMiddleX + sSizeX / 2, sMiddleY - sSizeY / 2, sMiddleY + sSizeY / 2))
-		return true;
-	if (IsPointInRect(fMiddleX - fSizeX / 2, fMiddleY + fSizeY / 2, sMiddleX - sSizeX / 2, sMiddleX + sSizeX / 2, sMiddleY - sSizeY / 2, sMiddleY + sSizeY / 2))
-		return true;
-	if (IsPointInRect(fMiddleX + fSizeX / 2, fMiddleY - fSizeY / 2, sMiddleX - sSizeX / 2, sMiddleX + sSizeX / 2, sMiddleY - sSizeY / 2, sMiddleY + sSizeY / 2))
-		return true;
-
-	return false;
-}

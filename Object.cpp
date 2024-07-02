@@ -1,5 +1,21 @@
 #include "Object.h"
 
+Object::Object(int x, int y, enum ObjectType objectType)
+{
+	xPosition = x;
+	yPosition = y;
+	type = objectType;
+	direction = (rand() % 4) * 90 + 45;
+
+	if (objectType == PAPER)
+		image = SDL_LoadBMP("./images/paper.bmp");
+	else if (objectType == SCISSORS)
+		image = SDL_LoadBMP("./images/scissors.bmp");
+	else if (objectType == ROCK)
+		image = SDL_LoadBMP("./images/rock.bmp");
+
+}
+
 void Object::move()
 {
 	if (direction > 360)
