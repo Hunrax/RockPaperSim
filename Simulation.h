@@ -4,6 +4,7 @@
 class Simulation
 {
 public:
+	int rockObjects, paperObjects, scissorsObjects;
 	Simulation(int rocks, int papers, int scissors)
 	{
 		rockObjects = rocks;
@@ -15,7 +16,6 @@ public:
 	void checkCollisions(Object* object, int objectIndex);
 	std::vector<Object> objects;
 private:
-	int rockObjects, paperObjects, scissorsObjects;
 	bool HitboxFunction(int fMiddleX, int fMiddleY, int fSizeX, int fSizeY, int sMiddleX, int sMiddleY, int sSizeX, int sSizeY);
 	bool IsPointInRect(int pointX, int pointY, int minX, int maxX, int minY, int maxY);
 	void changeObject(Object* first, Object* second);

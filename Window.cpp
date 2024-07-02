@@ -76,6 +76,18 @@ bool Window::run()
 		sprintf(text, "TIME: %.1lf s", worldTime);
 		DrawString(screen, 10, 10, text, charset);
 
+		DrawRectangle(screen, 4, 696, 80, 20, ALMOND, NAVY);
+		sprintf(text, "ROCK: %d", simulation->rockObjects);
+		DrawString(screen, 10, 702, text, charset);
+
+		DrawRectangle(screen, 445, 696, 90, 20, ALMOND, NAVY);
+		sprintf(text, "PAPER: %d", simulation->paperObjects);
+		DrawString(screen, 449, 702, text, charset);
+
+		DrawRectangle(screen, 836, 696, 120, 20, ALMOND, NAVY);
+		sprintf(text, "SCISSORS: %d", simulation->scissorsObjects);
+		DrawString(screen, 840, 702, text, charset);
+
 		SDL_UpdateTexture(scrtex, NULL, screen->pixels, screen->pitch);
 		SDL_RenderCopy(renderer, scrtex, NULL, NULL);
 		SDL_RenderPresent(renderer);

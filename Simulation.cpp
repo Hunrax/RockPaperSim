@@ -88,11 +88,15 @@ void Simulation::changeObject(Object* first, Object* second)
 		{
 			first->type = PAPER;
 			first->image = SDL_LoadBMP("./images/paper.bmp");
+			rockObjects--;
+			paperObjects++;
 		}
 		if (second->type == SCISSORS)
 		{
 			second->type = ROCK;
 			second->image = SDL_LoadBMP("./images/rock.bmp");
+			scissorsObjects--;
+			rockObjects++;
 		}
 	}
 	else if (first->type == PAPER)
@@ -101,11 +105,15 @@ void Simulation::changeObject(Object* first, Object* second)
 		{
 			first->type = SCISSORS;
 			first->image = SDL_LoadBMP("./images/scissors.bmp");
+			paperObjects--;
+			scissorsObjects++;
 		}
 		if (second->type == ROCK)
 		{
 			second->type = PAPER;
 			second->image = SDL_LoadBMP("./images/paper.bmp");
+			rockObjects--;
+			scissorsObjects++;
 		}
 	}
 	else if (first->type == SCISSORS)
@@ -114,11 +122,15 @@ void Simulation::changeObject(Object* first, Object* second)
 		{
 			second->type = SCISSORS;
 			second->image = SDL_LoadBMP("./images/scissors.bmp");
+			paperObjects--;
+			scissorsObjects++;
 		}
 		if (second->type == ROCK)
 		{
 			first->type = ROCK;
 			first->image = SDL_LoadBMP("./images/rock.bmp");
+			scissorsObjects--;
+			rockObjects++;
 		}
 	}
 }
