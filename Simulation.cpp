@@ -66,11 +66,39 @@ void Simulation::changeObject(Object* first, Object* second)
 	{
 		if (second->type == PAPER)
 		{
-			
+			first->type = PAPER;
+			first->image = SDL_LoadBMP("./images/paper.bmp");
 		}
 		if (second->type == SCISSORS)
 		{
-
+			second->type = ROCK;
+			second->image = SDL_LoadBMP("./images/rock.bmp");
+		}
+	}
+	else if (first->type == PAPER)
+	{
+		if (second->type == SCISSORS)
+		{
+			first->type = SCISSORS;
+			first->image = SDL_LoadBMP("./images/scissors.bmp");
+		}
+		if (second->type == ROCK)
+		{
+			second->type = PAPER;
+			second->image = SDL_LoadBMP("./images/paper.bmp");
+		}
+	}
+	else if (first->type == SCISSORS)
+	{
+		if (second->type == PAPER)
+		{
+			second->type = SCISSORS;
+			second->image = SDL_LoadBMP("./images/scissors.bmp");
+		}
+		if (second->type == ROCK)
+		{
+			first->type = ROCK;
+			first->image = SDL_LoadBMP("./images/rock.bmp");
 		}
 	}
 }
