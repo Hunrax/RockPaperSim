@@ -1,3 +1,0 @@
-﻿  Simulation.cpp
-C:\Users\Radek\Desktop\RockPaperSim\Simulation.cpp(26,12): warning C4244: "argument": konwersja z "time_t" do "unsigned int", możliwa utrata danych
-  szablon2vs19.vcxproj -> C:\Users\Radek\Desktop\RockPaperSim\Debug\szablon2vs19.exe
