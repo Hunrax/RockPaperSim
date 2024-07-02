@@ -21,7 +21,10 @@ Window::Window()
 	SDL_RenderSetLogicalSize(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 
-	SDL_SetWindowTitle(window, "BULLET HELL");
+	SDL_SetWindowTitle(window, "ROCK PAPER SCISSORS SIMULATION");
+
+	icon = SDL_LoadBMP("./images/rock.bmp");
+	SDL_SetWindowIcon(window, icon);
 
 	screen = SDL_CreateRGBSurface(0, SCREEN_WIDTH, SCREEN_HEIGHT, 32,
 		0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000);
@@ -43,7 +46,7 @@ Window::Window()
 
 bool Window::run()
 {
-	simulation = new Simulation(5, 5, 5);
+	simulation = new Simulation(OBJECT_AMOUNT, OBJECT_AMOUNT, OBJECT_AMOUNT);
 	simulation->startSimulation();
 	DrawRectangle(screen, 0, 0, 960, 720, ALMOND, ALMOND); 
 

@@ -5,8 +5,8 @@
 
 void Simulation::generateObject(ObjectType type)
 {
-	int y = rand() % SCREEN_HEIGHT;
-	int x = rand() % SCREEN_WIDTH;
+	int y = rand() % (SCREEN_HEIGHT - 2 * OBJECT_SIZE) + OBJECT_SIZE;
+	int x = rand() % (SCREEN_WIDTH - 2 * OBJECT_SIZE) + OBJECT_SIZE;
 	switch (type)
 	{
 		case ROCK:
