@@ -7,7 +7,7 @@ public:
 	int xPosition, yPosition;
 	SDL_Surface* image;
 	enum ObjectType type;
-	void move(double delta);
+	void move();
 protected:
 	int direction;
 };

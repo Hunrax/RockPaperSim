@@ -66,7 +66,7 @@ bool Window::run()
 
 		for (int i = 0; i < simulation->objects.size(); i++)
 		{
-			simulation->objects[i].move(delta);
+			simulation->objects[i].move();
 			DrawSurface(screen, simulation->objects[i].image, simulation->objects[i].xPosition, simulation->objects[i].yPosition);
 		}
 
