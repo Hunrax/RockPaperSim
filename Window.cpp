@@ -16,7 +16,6 @@ Window::Window()
 		SDL_Quit();
 		exit(0);
 	}
-
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
 	SDL_RenderSetLogicalSize(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -55,45 +54,22 @@ bool Window::run()
 	exitGame = false;
 	while (!exitGame)
 	{	
-		DrawRectangle(screen, 0, 0, 960, 720, ALMOND, ALMOND);
-
 		int t2 = SDL_GetTicks();
-
 		double delta = (t2 - t1) * 0.001;
 		t1 = t2;
-
 		worldTime += delta;
 
-		for (int i = 0; i < simulation->objects.size(); i++)
-		{
-			simulation->objects[i].move();
-			simulation->checkCollisions(&(simulation->objects[i]), i);
-			DrawSurface(screen, simulation->objects[i].image, simulation->objects[i].xPosition, simulation->objects[i].yPosition);
-		}
+		DrawRectangle(screen, 0, 0, 960, 720, ALMOND, ALMOND);
+		
+		handleObjects();
 
-		char text[128];
-		DrawRectangle(screen, 4, 4, 120, 20, ALMOND, NAVY);
-		sprintf(text, "TIME: %.1lf s", worldTime);
-		DrawString(screen, 10, 10, text, charset);
-
-		DrawRectangle(screen, 4, 696, 80, 20, ALMOND, NAVY);
-		sprintf(text, "ROCK: %d", simulation->rockObjects);
-		DrawString(screen, 10, 702, text, charset);
-
-		DrawRectangle(screen, 445, 696, 90, 20, ALMOND, NAVY);
-		sprintf(text, "PAPER: %d", simulation->paperObjects);
-		DrawString(screen, 449, 702, text, charset);
-
-		DrawRectangle(screen, 836, 696, 120, 20, ALMOND, NAVY);
-		sprintf(text, "SCISSORS: %d", simulation->scissorsObjects);
-		DrawString(screen, 840, 702, text, charset);
+		displayTexts(worldTime);
 
 		SDL_UpdateTexture(scrtex, NULL, screen->pixels, screen->pitch);
 		SDL_RenderCopy(renderer, scrtex, NULL, NULL);
 		SDL_RenderPresent(renderer);
 
 		SDL_Event event;
-
 		while (SDL_PollEvent(&event))
 		{
 			switch (event.type)
@@ -101,14 +77,9 @@ bool Window::run()
 			case SDL_KEYDOWN:
 				if (event.key.keysym.sym == SDLK_ESCAPE)
 					exitGame = 1;
-
 			case SDL_WINDOWEVENT:
-				switch (event.window.event) 
-				{
-				case SDL_WINDOWEVENT_CLOSE:
+				if (event.window.event == SDL_WINDOWEVENT_CLOSE)
 					exitGame = 1;
-					break;
-				}
 			}
 		}
 	}
@@ -131,4 +102,35 @@ void Window::quit()
 	if (window)
 		SDL_DestroyWindow(window);
 	SDL_Quit();
+}
+
+void Window::displayTexts(double worldTime)
+{
+	char text[128];
+	DrawRectangle(screen, 4, 4, 120, 20, ALMOND, NAVY);
+	sprintf(text, "TIME: %.1lf s", worldTime);
+	DrawString(screen, 10, 10, text, charset);
+
+	DrawRectangle(screen, 4, 696, 80, 20, ALMOND, NAVY);
+	sprintf(text, "ROCK: %d", simulation->rockObjects);
+	DrawString(screen, 10, 702, text, charset);
+
+	DrawRectangle(screen, 445, 696, 90, 20, ALMOND, NAVY);
+	sprintf(text, "PAPER: %d", simulation->paperObjects);
+	DrawString(screen, 449, 702, text, charset);
+
+	DrawRectangle(screen, 846, 696, 110, 20, ALMOND, NAVY);
+	sprintf(text, "SCISSORS: %d", simulation->scissorsObjects);
+	DrawString(screen, 850, 702, text, charset);
+	DrawString(screen, 850, 702, text, charset);
+}
+
+void Window::handleObjects()
+{
+	for (int i = 0; i < simulation->objects.size(); i++)
+	{
+		simulation->objects[i].move();
+		simulation->checkCollisions(&(simulation->objects[i]), i);
+		DrawSurface(screen, simulation->objects[i].image, simulation->objects[i].xPosition, simulation->objects[i].yPosition);
+	}
 }

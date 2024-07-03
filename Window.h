@@ -8,6 +8,8 @@ public:
 	Window();
 	bool run();
 	void quit();
+	void displayTexts(double worldTime);
+	void handleObjects();
 private:
 	SDL_Window* window;
 	SDL_Renderer* renderer;
