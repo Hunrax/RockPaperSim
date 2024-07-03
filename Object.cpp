@@ -1,11 +1,12 @@
 #include "Object.h"
 
-Object::Object(int x, int y, enum ObjectType objectType)
+Object::Object(int x, int y, enum ObjectType objectType, int objectNumber)
 {
 	xPosition = x;
 	yPosition = y;
 	type = objectType;
 	direction = (rand() % 4) * 90 + 45;
+	number = objectNumber;
 
 	if (objectType == PAPER)
 		image = SDL_LoadBMP("./images/paper.bmp");

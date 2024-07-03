@@ -132,5 +132,10 @@ void Window::handleObjects()
 		simulation->objects[i].move();
 		simulation->checkCollisions(&(simulation->objects[i]), i);
 		DrawSurface(screen, simulation->objects[i].image, simulation->objects[i].xPosition, simulation->objects[i].yPosition);
+
+		char text[128];
+		sprintf(text, "%d", simulation->objects[i].number);
+		DrawRectangle(screen, simulation->objects[i].xPosition - 8, simulation->objects[i].yPosition - 8, 20, 14, NAVY, NAVY);
+		DrawString(screen, simulation->objects[i].xPosition - 5, simulation->objects[i].yPosition - 5, text, charset);
 	}
 }

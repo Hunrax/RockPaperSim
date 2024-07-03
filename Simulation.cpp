@@ -24,7 +24,28 @@ void Simulation::generateObject(enum ObjectType type)
 		else
 			correctCoordinates = true;
 	}
-	objects.push_back(Object(x, y, type));
+
+	bool sameNumber = true;
+	int randomNumber;
+	while (sameNumber == true)
+	{
+		randomNumber = rand() % 99 + 1;
+		if (objects.size() > 1)
+		{
+			for (int i = 0; i < objects.size(); i++)
+			{
+				if (randomNumber == objects[i].number)
+				{
+					sameNumber = true;
+					break;
+				}
+				sameNumber = false;
+			}
+		}
+		else
+			sameNumber = false;
+	}
+	objects.push_back(Object(x, y, type, randomNumber));
 }
 
 void Simulation::startSimulation()
@@ -37,6 +58,7 @@ void Simulation::startSimulation()
 	for (int i = 0; i < scissorsObjects; i++)
 		generateObject(SCISSORS);
 }
+
 void Simulation::checkCollisions(Object* object, int objectIndex)
 {
 	for (int i = objectIndex; i < objects.size(); i++)

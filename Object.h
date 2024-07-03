@@ -4,9 +4,8 @@
 class Object
 {
 public:
-	Object(int x, int y, enum ObjectType objectType);
-	int xPosition, yPosition;
-	int direction;
+	Object(int x, int y, enum ObjectType objectType, int objectNumber);
+	int xPosition, yPosition, direction, number;
 	SDL_Surface* image;
 	enum ObjectType type;
 	void move();
