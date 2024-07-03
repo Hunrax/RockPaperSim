@@ -113,7 +113,7 @@ void Simulation::changeObject(Object* first, Object* second)
 			second->type = PAPER;
 			second->image = SDL_LoadBMP("./images/paper.bmp");
 			rockObjects--;
-			scissorsObjects++;
+			paperObjects++;
 		}
 	}
 	else if (first->type == SCISSORS)
