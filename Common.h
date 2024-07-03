@@ -18,4 +18,4 @@ extern "C" {
 #define SCREEN_HEIGHT 720
 
 #define OBJECT_SIZE 40
-#define OBJECT_AMOUNT 7
+#define OBJECT_AMOUNT 5

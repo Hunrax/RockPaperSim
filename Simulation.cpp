@@ -1,9 +1,8 @@
 #include "Simulation.h"
 
-void Simulation::generateObject(ObjectType type)
+void Simulation::generateObject(enum ObjectType type)
 {
 	bool correctCoordinates = false;
-
 	int x, y;
 	while (correctCoordinates == false)
 	{
@@ -44,15 +43,9 @@ void Simulation::checkCollisions(Object* object, int objectIndex)
 	{
 		if (HitboxFunction(object->xPosition, object->yPosition, OBJECT_SIZE / 4 * 3, OBJECT_SIZE / 4 * 3, objects[i].xPosition, objects[i].yPosition, OBJECT_SIZE / 4 * 3, OBJECT_SIZE / 4 * 3))
 		{
-			if (object->direction < 180)
-				object->direction += 180;
-			else
-				object->direction -= 180;
-
-			if (objects[i].direction < 180)
-				objects[i].direction += 180;
-			else
-				objects[i].direction -= 180;
+			int tempDirection = objects[i].direction;
+			objects[i].direction = object->direction;
+			object->direction = tempDirection;
 
 			changeObject(object, &(objects[i]));
 		}

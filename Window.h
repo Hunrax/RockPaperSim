@@ -7,9 +7,6 @@ class Window
 public:
 	Window();
 	bool run();
-	void quit();
-	void displayTexts(double worldTime);
-	void handleObjects();
 private:
 	SDL_Window* window;
 	SDL_Renderer* renderer;
@@ -20,5 +17,8 @@ private:
 	SDL_Surface* icon;
 	Simulation* simulation;
 	bool exitGame;
+	void quit();
+	void displayTexts(double worldTime);
+	void handleObjects();
 };
 
