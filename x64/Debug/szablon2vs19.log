@@ -1,3 +1,28 @@
-﻿  Object.cpp
+﻿  main.cpp
+  Object.cpp
+  Simulation.cpp
+C:\Users\Radek\Desktop\RockPaperSim\Simulation.cpp(52,12): warning C4244: "argument": konwersja z "time_t" do "unsigned int", możliwa utrata danych
+C:\Users\Radek\Desktop\RockPaperSim\Simulation.cpp(64,134): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
+C:\Users\Radek\Desktop\RockPaperSim\Simulation.cpp(64,112): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
+C:\Users\Radek\Desktop\RockPaperSim\Simulation.cpp(64,47): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
+C:\Users\Radek\Desktop\RockPaperSim\Simulation.cpp(64,28): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
+  Window.cpp
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(110,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(114,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(118,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(122,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(126,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(139,109): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(139,75): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(143,96): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(143,58): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(147,105): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(147,59): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(142,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(161,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(165,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(171,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(177,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  Generowanie kodu...
 C:\Users\Radek\Desktop\RockPaperSim\Object.cpp(97): warning C4715: "Object::typeToString”: niewszystkie ścieżki kodu zwracają wartość
   szablon2vs19.vcxproj -> C:\Users\Radek\Desktop\RockPaperSim\x64\Debug\szablon2vs19.exe

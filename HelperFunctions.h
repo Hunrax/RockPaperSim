@@ -1,14 +1,8 @@
 #pragma once
 #include "Common.h"
 
-#define CZARNY SDL_MapRGB(screen->format, 0x00, 0x00, 0x00)
-#define ZIELONY SDL_MapRGB(screen->format, 0x00, 0xFF, 0x00)
-#define CZERWONY SDL_MapRGB(screen->format, 0xFF, 0x00, 0x00)
-#define NIEBIESKI SDL_MapRGB(screen->format, 0x11, 0x11, 0xCC)
 #define NAVY SDL_MapRGB(screen->format, 0x1E, 0x3D, 0x59)
 #define ALMOND SDL_MapRGB(screen->format, 0xF5, 0xF0, 0xE1)
-#define VIOLET SDL_MapRGB(screen->format, 0x32, 0x0D, 0x3E)
-#define GRANATOWY SDL_MapRGB(screen->format, 0x1E, 0x27, 0x61)
 
 // narysowanie napisu txt na powierzchni screen, zaczynaj¹c od punktu (x, y)
 // charset to bitmapa 128x128 zawieraj¹ca znaki

@@ -106,6 +106,10 @@ void Window::quit()
 void Window::displayTexts(double worldTime)
 {
 	char text[128];
+	DrawRectangle(screen, 749, 4, 207, 20, ALMOND, NAVY);
+	sprintf(text, "AUTHOR: RADOSLAW GAJEWSKI");
+	DrawString(screen, 755, 10, text, charset);
+
 	DrawRectangle(screen, 4, 4, 120, 20, ALMOND, NAVY);
 	sprintf(text, "TIME: %.1lf s", worldTime);
 	DrawString(screen, 10, 10, text, charset);
@@ -125,7 +129,6 @@ void Window::displayTexts(double worldTime)
 }
 void Window::handleObjects(double delta)
 {
-	//Sleep(1);
 	for (int i = 0; i < simulation->objects.size(); i++)
 	{
 		if (!checkGameOver())
