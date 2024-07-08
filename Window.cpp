@@ -35,13 +35,11 @@ Window::Window()
 	}
 	SDL_SetColorKey(charset, true, 0x000000);
 
-	simulation = new Simulation(OBJECT_AMOUNT, OBJECT_AMOUNT, OBJECT_AMOUNT);
+	simulation = new Simulation();
 	exitGame = false;
 }
 bool Window::run()
 {
-	simulation->startSimulation();
-
 	int t1 = SDL_GetTicks();
 	double worldTime = 0;
 
@@ -51,14 +49,21 @@ bool Window::run()
 		double delta = (t2 - t1) * 0.001;
 		t1 = t2;
 
-		if(!simulation->checkifGameOver())
-			worldTime += delta;
-
 		DrawRectangle(screen, 0, 0, 960, 720, ALMOND, ALMOND);
 		
-		handleObjects(delta);
+		if (simulation->simulationStarted)
+		{
+			if (!simulation->checkifGameOver())
+				worldTime += delta;
 
-		displayTexts(worldTime);
+			handleObjects(delta);
+			displayTexts(worldTime);
+		}
+		else
+		{
+			displayMenu();
+		}
+
 
 		SDL_UpdateTexture(scrtex, NULL, screen->pixels, screen->pitch);
 		SDL_RenderCopy(renderer, scrtex, NULL, NULL);
@@ -70,12 +75,47 @@ bool Window::run()
 			switch (event.type)
 			{
 			case SDL_KEYDOWN:
-				if (event.key.keysym.sym == SDLK_ESCAPE)
+				switch (event.key.keysym.sym)
+				{
+				case SDLK_ESCAPE:
 					exitGame = true;
-				else if (event.key.keysym.sym == SDLK_d)
-					simulation->changeSimulationSpeed(INCREASE_SPEED);
-				else if (event.key.keysym.sym == SDLK_a)
-					simulation->changeSimulationSpeed(DECREASE_SPEED);
+					break;
+				case SDLK_d:
+					if(simulation->simulationStarted)
+						simulation->changeSimulationSpeed(INCREASE_SPEED);
+					break;
+				case SDLK_a:
+					if (simulation->simulationStarted)
+						simulation->changeSimulationSpeed(DECREASE_SPEED);
+					break;
+				case SDLK_s:
+					if (!simulation->simulationStarted)
+					{
+						simulation->simulationStarted = true;
+						simulation->startSimulation();
+					}
+					break;
+				case SDLK_0: case SDLK_1: case SDLK_2: case SDLK_3: case SDLK_4: case SDLK_5: case SDLK_6: case SDLK_7: case SDLK_8: case SDLK_9:
+					if (!simulation->simulationStarted)
+					{
+						if (!simulation->rockObjectsSet)
+						{
+							simulation->rockObjects = event.key.keysym.sym - '0';
+							simulation->rockObjectsSet = true;
+						}
+						else if (!simulation->paperObjectsSet)
+						{
+							simulation->paperObjects = event.key.keysym.sym - '0';
+							simulation->paperObjectsSet = true;
+						}
+						else if (!simulation->scissorsObjectsSet)
+						{
+							simulation->scissorsObjects = event.key.keysym.sym - '0';
+							simulation->scissorsObjectsSet = true;
+						}
+					}
+					break;
+				}
 
 			case SDL_WINDOWEVENT:
 				if (event.window.event == SDL_WINDOWEVENT_CLOSE)
@@ -109,6 +149,54 @@ void Window::displayTexts(double worldTime)
 	sprintf(text, "SCISSORS: %d", simulation->scissorsObjects);
 	DrawString(screen, 850, 702, text, charset);
 	DrawString(screen, 850, 702, text, charset);
+}
+void Window::displayMenu()
+{
+	DrawRectangle(screen, 280, 70, 400, 580, NAVY, LIGHT_BLUE);
+
+	char text[128];
+	DrawRectangle(screen, 340, 78, 280, 44, ALMOND, NAVY);
+	sprintf(text, "ROCK PAPER SCISSORS SIMULATION");
+	DrawString(screen, 362, 94, text, charset);
+
+
+	if (!simulation->rockObjectsSet)
+	{
+		DrawRectangle(screen, 338, 176, 284, 48, RED, RED);
+		DrawRectangle(screen, 340, 178, 280, 44, RED, NAVY);
+	}
+	else
+		DrawRectangle(screen, 340, 178, 280, 44, ALMOND, NAVY);
+	sprintf(text, "ENTER THE NUMBER OF ROCKS: %d", simulation->rockObjects);
+	DrawString(screen, 350, 194, text, charset);
+
+	if (simulation->rockObjectsSet && !simulation->paperObjectsSet)
+	{
+		DrawRectangle(screen, 338, 276, 284, 48, RED, RED);
+		DrawRectangle(screen, 340, 278, 280, 44, RED, NAVY);
+	}
+	else
+		DrawRectangle(screen, 340, 278, 280, 44, ALMOND, NAVY);
+	sprintf(text, "ENTER THE NUMBER OF PAPERS: %d", simulation->paperObjects);
+	DrawString(screen, 350, 294, text, charset);
+
+	if (simulation->rockObjectsSet && simulation->paperObjectsSet && !simulation->scissorsObjectsSet)
+	{
+		DrawRectangle(screen, 338, 376, 284, 48, RED, RED);
+		DrawRectangle(screen, 340, 378, 280, 44, RED, NAVY);
+	}
+	else
+		DrawRectangle(screen, 340, 378, 280, 44, ALMOND, NAVY);
+	sprintf(text, "ENTER THE NUMBER OF SCISSORS: %d", simulation->scissorsObjects);
+	DrawString(screen, 350, 394, text, charset);
+
+	DrawRectangle(screen, 340, 550, 280, 44, ALMOND, NAVY);
+	sprintf(text, "PRESS 'S' TO START");
+	DrawString(screen, 408, 566, text, charset);
+
+	DrawRectangle(screen, 340, 600, 280, 40, ALMOND, NAVY);
+	sprintf(text, "AUTHOR: RADOSLAW GAJEWSKI");
+	DrawString(screen, 380, 616, text, charset);
 }
 void Window::handleObjects(double delta)
 {

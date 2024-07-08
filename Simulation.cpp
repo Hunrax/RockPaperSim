@@ -1,5 +1,17 @@
 #include "Simulation.h"
 
+Simulation::Simulation()
+{
+	rockObjects = 0;
+	paperObjects = 0;
+	scissorsObjects = 0;
+
+	rockObjectsSet = false;
+	paperObjectsSet = false;
+	scissorsObjectsSet = false;
+
+	simulationStarted = false;
+}
 void Simulation::generateObject(enum ObjectType type)
 {
 	bool correctCoordinates = false;

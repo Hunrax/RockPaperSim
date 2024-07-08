@@ -5,13 +5,10 @@ class Simulation
 {
 public:
 	int rockObjects, paperObjects, scissorsObjects;
+	bool rockObjectsSet, paperObjectsSet, scissorsObjectsSet;
 	std::vector<Object> objects;
-	Simulation(int rocks, int papers, int scissors)
-	{
-		rockObjects = rocks;
-		paperObjects = papers;
-		scissorsObjects = scissors;
-	}
+	bool simulationStarted;
+	Simulation();
 	void startSimulation();
 	void checkCollisions(Object* object, int objectIndex);
 	int checkifGameOver();
