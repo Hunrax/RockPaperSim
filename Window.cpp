@@ -95,6 +95,9 @@ bool Window::run()
 						simulation->startSimulation();
 					}
 					break;
+				case SDLK_m:
+					simulation = new Simulation();
+					break;
 				case SDLK_0: case SDLK_1: case SDLK_2: case SDLK_3: case SDLK_4: case SDLK_5: case SDLK_6: case SDLK_7: case SDLK_8: case SDLK_9:
 					if (!simulation->simulationStarted)
 					{
@@ -137,13 +140,17 @@ void Window::displayTexts(double worldTime)
 	sprintf(text, "TIME: %.1lf s", worldTime);
 	DrawString(screen, 10, 10, text, charset);
 
+	DrawRectangle(screen, 340, 4, 240, 20, ALMOND, NAVY);
+	sprintf(text, "PRESS 'M' TO GO BACK TO MENU");
+	DrawString(screen, 346, 10, text, charset);
+
 	DrawRectangle(screen, 4, 696, 80, 20, ALMOND, NAVY);
 	sprintf(text, "ROCK: %d", simulation->rockObjects);
 	DrawString(screen, 10, 702, text, charset);
 
-	DrawRectangle(screen, 445, 696, 90, 20, ALMOND, NAVY);
+	DrawRectangle(screen, 435, 696, 90, 20, ALMOND, NAVY);
 	sprintf(text, "PAPER: %d", simulation->paperObjects);
-	DrawString(screen, 449, 702, text, charset);
+	DrawString(screen, 439, 702, text, charset);
 
 	DrawRectangle(screen, 846, 696, 110, 20, ALMOND, NAVY);
 	sprintf(text, "SCISSORS: %d", simulation->scissorsObjects);
