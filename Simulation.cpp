@@ -24,7 +24,6 @@ void Simulation::generateObject(enum ObjectType type)
 		else
 			correctCoordinates = true;
 	}
-
 	bool sameNumber = true;
 	int randomNumber;
 	while (sameNumber == true)

@@ -1,5 +1,4 @@
 #pragma once
-#include "Common.h"
 #include "Simulation.h"
 
 class Window
@@ -13,7 +12,6 @@ private:
 	SDL_Texture* scrtex;
 	SDL_Surface* charset;
 	SDL_Surface* screen;
-	SDL_Surface* background;
 	SDL_Surface* icon;
 	Simulation* simulation;
 	bool exitGame;

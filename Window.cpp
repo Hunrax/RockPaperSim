@@ -4,13 +4,9 @@
 Window::Window()
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) 
-	{
 		exit(0);
-	}
 
-	int rc = SDL_CreateWindowAndRenderer(SCREEN_WIDTH, SCREEN_HEIGHT, 0,
-		&window, &renderer);
-
+	int rc = SDL_CreateWindowAndRenderer(SCREEN_WIDTH, SCREEN_HEIGHT, 0, &window, &renderer);
 	if (rc != 0)
 	{
 		SDL_Quit();
@@ -25,12 +21,9 @@ Window::Window()
 	icon = SDL_LoadBMP("./images/rock.bmp");
 	SDL_SetWindowIcon(window, icon);
 
-	screen = SDL_CreateRGBSurface(0, SCREEN_WIDTH, SCREEN_HEIGHT, 32,
-		0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000);
+	screen = SDL_CreateRGBSurface(0, SCREEN_WIDTH, SCREEN_HEIGHT, 32, 0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000);
 
-	scrtex = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888,
-		SDL_TEXTUREACCESS_STREAMING,
-		SCREEN_WIDTH, SCREEN_HEIGHT);
+	scrtex = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	SDL_ShowCursor(SDL_ENABLE);
 
@@ -41,16 +34,17 @@ Window::Window()
 		exit(0);
 	}
 	SDL_SetColorKey(charset, true, 0x000000);
+
+	simulation = new Simulation(OBJECT_AMOUNT, OBJECT_AMOUNT, OBJECT_AMOUNT);
+	exitGame = false;
 }
 bool Window::run()
 {
-	simulation = new Simulation(OBJECT_AMOUNT, OBJECT_AMOUNT, OBJECT_AMOUNT);
 	simulation->startSimulation();
 
 	int t1 = SDL_GetTicks();
 	double worldTime = 0;
 
-	exitGame = false;
 	while (!exitGame)
 	{	
 		int t2 = SDL_GetTicks();
@@ -77,31 +71,15 @@ bool Window::run()
 			{
 			case SDL_KEYDOWN:
 				if (event.key.keysym.sym == SDLK_ESCAPE)
-					exitGame = 1;
+					exitGame = true;
 			case SDL_WINDOWEVENT:
 				if (event.window.event == SDL_WINDOWEVENT_CLOSE)
-					exitGame = 1;
+					exitGame = true;
 			}
 		}
 	}
 	quit();
 	return false;
-}
-void Window::quit()
-{
-	if (charset)
-		SDL_FreeSurface(charset);
-	if (screen)
-		SDL_FreeSurface(screen);
-	if (icon)
-		SDL_FreeSurface(icon);
-	if(scrtex)
-		SDL_DestroyTexture(scrtex);
-	if (renderer)
-		SDL_DestroyRenderer(renderer);
-	if (window)
-		SDL_DestroyWindow(window);
-	SDL_Quit();
 }
 void Window::displayTexts(double worldTime)
 {
@@ -141,9 +119,11 @@ void Window::handleObjects(double delta)
 		char text[128];
 		sprintf(text, "%d", simulation->objects[i].number);
 		DrawRectangle(screen, simulation->objects[i].xPosition - 8, simulation->objects[i].yPosition - 8, 20, 14, NAVY, NAVY);
+
 		int textShift = 0;
 		if (simulation->objects[i].number < 10)
-			textShift += 4;
+			textShift = 4;
+
 		DrawString(screen, simulation->objects[i].xPosition - 5 + textShift, simulation->objects[i].yPosition - 5, text, charset);
 	}
 }
@@ -181,4 +161,20 @@ bool Window::checkGameOver()
 		return true;
 	}
 	return false;
+}
+void Window::quit()
+{
+	if (charset)
+		SDL_FreeSurface(charset);
+	if (screen)
+		SDL_FreeSurface(screen);
+	if (icon)
+		SDL_FreeSurface(icon);
+	if (scrtex)
+		SDL_DestroyTexture(scrtex);
+	if (renderer)
+		SDL_DestroyRenderer(renderer);
+	if (window)
+		SDL_DestroyWindow(window);
+	SDL_Quit();
 }
