@@ -15,6 +15,7 @@ public:
 	void startSimulation();
 	void checkCollisions(Object* object, int objectIndex);
 	int checkifGameOver();
+	Object* findMVP();
 private:
 	void generateObject(enum ObjectType type);
 	bool HitboxFunction(int fMiddleX, int fMiddleY, int fSizeX, int fSizeY, int sMiddleX, int sMiddleY, int sSizeX, int sSizeY);

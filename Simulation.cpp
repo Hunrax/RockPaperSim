@@ -103,6 +103,8 @@ void Simulation::changeObject(Object* first, Object* second)
 		{
 			first->type = PAPER;
 			first->image = SDL_LoadBMP("./images/paper.bmp");
+			second->points++;
+
 			rockObjects--;
 			paperObjects++;
 		}
@@ -110,6 +112,8 @@ void Simulation::changeObject(Object* first, Object* second)
 		{
 			second->type = ROCK;
 			second->image = SDL_LoadBMP("./images/rock.bmp");
+			first->points++;
+
 			scissorsObjects--;
 			rockObjects++;
 		}
@@ -120,6 +124,8 @@ void Simulation::changeObject(Object* first, Object* second)
 		{
 			first->type = SCISSORS;
 			first->image = SDL_LoadBMP("./images/scissors.bmp");
+			second->points++;
+
 			paperObjects--;
 			scissorsObjects++;
 		}
@@ -127,6 +133,8 @@ void Simulation::changeObject(Object* first, Object* second)
 		{
 			second->type = PAPER;
 			second->image = SDL_LoadBMP("./images/paper.bmp");
+			first->points++;
+
 			rockObjects--;
 			paperObjects++;
 		}
@@ -137,6 +145,8 @@ void Simulation::changeObject(Object* first, Object* second)
 		{
 			second->type = SCISSORS;
 			second->image = SDL_LoadBMP("./images/scissors.bmp");
+			first->points++;
+
 			paperObjects--;
 			scissorsObjects++;
 		}
@@ -144,6 +154,8 @@ void Simulation::changeObject(Object* first, Object* second)
 		{
 			first->type = ROCK;
 			first->image = SDL_LoadBMP("./images/rock.bmp");
+			second->points++;
+
 			scissorsObjects--;
 			rockObjects++;
 		}
@@ -160,4 +172,15 @@ int Simulation::checkifGameOver()
 		return ROCK_WIN;
 
 	return 0;
+}
+
+Object* Simulation::findMVP()
+{
+	Object* mvp = new Object(0, 0, ROCK, 0);
+	for (int i = 0; i < objects.size(); i++)
+	{
+		if (objects[i].points > mvp->points)
+			mvp = &objects[i];
+	}
+	return mvp;
 }

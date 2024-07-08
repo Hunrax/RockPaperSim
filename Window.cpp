@@ -45,7 +45,7 @@ Window::Window()
 
 bool Window::run()
 {
-	simulation = new Simulation(0, OBJECT_AMOUNT, OBJECT_AMOUNT);
+	simulation = new Simulation(OBJECT_AMOUNT, OBJECT_AMOUNT, OBJECT_AMOUNT);
 	simulation->startSimulation();
 
 	int t1 = SDL_GetTicks();
@@ -159,18 +159,22 @@ bool Window::checkGameOver()
 		if (gameResult == ROCK_WIN)
 		{
 			sprintf(text, "R O C K S   W I N !");
-			DrawString(screen, 410, 355, text, charset);
+			DrawString(screen, 410, 345, text, charset);
 		}
 		else if (gameResult == PAPER_WIN)
 		{
 			sprintf(text, "P A P E R S   W I N !");
-			DrawString(screen, 400, 355, text, charset);
+			DrawString(screen, 400, 345, text, charset);
 		}
 		else if (gameResult == SCISSORS_WIN)
 		{
 			sprintf(text, "S C I S S O R S   W I N !");
-			DrawString(screen, 380, 355, text, charset);
+			DrawString(screen, 380, 345, text, charset);
 		}
+		Object* mvp = simulation->findMVP();
+		sprintf(text, "M V P : NUMBER: %d POINTS: %d", mvp->number, mvp->points);
+		DrawString(screen, 370, 365, text, charset);
+
 		return true;
 	}
 	return false;

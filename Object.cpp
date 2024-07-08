@@ -7,6 +7,7 @@ Object::Object(int x, int y, enum ObjectType objectType, int objectNumber)
 	type = objectType;
 	direction = (rand() % 4) * 90 + 45;
 	number = objectNumber;
+	points = 0;
 
 	if (objectType == PAPER)
 		image = SDL_LoadBMP("./images/paper.bmp");
