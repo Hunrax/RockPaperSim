@@ -23,3 +23,6 @@ extern "C" {
 #define PAPER_WIN 2
 #define SCISSORS_WIN 3
 
+#define DECREASE_SPEED 0
+#define INCREASE_SPEED 10
+

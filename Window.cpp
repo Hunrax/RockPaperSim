@@ -72,6 +72,11 @@ bool Window::run()
 			case SDL_KEYDOWN:
 				if (event.key.keysym.sym == SDLK_ESCAPE)
 					exitGame = true;
+				else if (event.key.keysym.sym == SDLK_d)
+					simulation->changeSimulationSpeed(INCREASE_SPEED);
+				else if (event.key.keysym.sym == SDLK_a)
+					simulation->changeSimulationSpeed(DECREASE_SPEED);
+
 			case SDL_WINDOWEVENT:
 				if (event.window.event == SDL_WINDOWEVENT_CLOSE)
 					exitGame = true;

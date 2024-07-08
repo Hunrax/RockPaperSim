@@ -176,3 +176,17 @@ Object* Simulation::findMVP()
 	}
 	return mvp;
 }
+
+void Simulation::changeSimulationSpeed(int value)
+{
+	if (value == INCREASE_SPEED)
+	{
+		for (int i = 0; i < objects.size(); i++)
+			objects[i].speed *= 1.5;
+	}
+	else if (value == DECREASE_SPEED)
+	{
+		for (int i = 0; i < objects.size(); i++)
+			objects[i].speed /= 1.5;
+	}
+}

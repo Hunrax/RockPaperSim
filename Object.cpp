@@ -8,6 +8,7 @@ Object::Object(int x, int y, enum ObjectType objectType, int objectNumber)
 	direction = (rand() % 4) * 90 + 45;
 	number = objectNumber;
 	points = 0;
+	speed = 1.0;
 
 	if (objectType == PAPER)
 		image = SDL_LoadBMP("./images/paper.bmp");
@@ -18,7 +19,7 @@ Object::Object(int x, int y, enum ObjectType objectType, int objectNumber)
 }
 void Object::move(double delta)
 {
-	double speed = 1 * delta * 100;
+	double finalSpeed = 1 * delta * 100 * speed;
 
 	if (direction > 360)
 		direction -= 360;
@@ -29,8 +30,8 @@ void Object::move(double delta)
 	{
 		if (xPosition < SCREEN_WIDTH - (OBJECT_SIZE / 2) && yPosition > (OBJECT_SIZE / 2))
 		{
-			xPosition += 1 * speed;
-			yPosition -= 1 * speed;
+			xPosition += 1 * finalSpeed;
+			yPosition -= 1 * finalSpeed;
 		}
 		else
 		{
@@ -44,8 +45,8 @@ void Object::move(double delta)
 	{
 		if (xPosition < SCREEN_WIDTH - (OBJECT_SIZE / 2) && yPosition < SCREEN_HEIGHT - (OBJECT_SIZE / 2))
 		{
-			xPosition += 1 * speed;
-			yPosition += 1 * speed;
+			xPosition += 1 * finalSpeed;
+			yPosition += 1 * finalSpeed;
 		}
 		else
 		{
@@ -59,8 +60,8 @@ void Object::move(double delta)
 	{
 		if (xPosition > (OBJECT_SIZE / 2) && yPosition < SCREEN_HEIGHT - (OBJECT_SIZE / 2))
 		{
-			xPosition -= 1 * speed;
-			yPosition += 1 * speed;
+			xPosition -= 1 * finalSpeed;
+			yPosition += 1 * finalSpeed;
 		}
 		else
 		{
@@ -74,8 +75,8 @@ void Object::move(double delta)
 	{
 		if (xPosition > (OBJECT_SIZE / 2) && yPosition > (OBJECT_SIZE / 2))
 		{
-			xPosition -= 1 * speed;
-			yPosition -= 1 * speed;
+			xPosition -= 1 * finalSpeed;
+			yPosition -= 1 * finalSpeed;
 		}
 		else
 		{

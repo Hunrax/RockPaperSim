@@ -5,7 +5,7 @@ class Object
 {
 public:
 	Object(int x, int y, enum ObjectType objectType, int objectNumber);
-	double xPosition, yPosition;
+	double xPosition, yPosition, speed;
 	int direction, number, points;
 	SDL_Surface* image;
 	enum ObjectType type;
