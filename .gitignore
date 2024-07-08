@@ -1,5 +1,3 @@
-!SDL2-2.0.10/lib/
-
 ### C++ ###
 # Prerequisites
 *.d
@@ -17,7 +15,6 @@
 # Compiled Dynamic libraries
 *.so
 *.dylib
-*.dll
 
 # Fortran module files
 *.mod
@@ -27,7 +24,6 @@
 *.lai
 *.la
 *.a
-*.lib
 
 # Executables
 *.exe
