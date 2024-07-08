@@ -149,3 +149,15 @@ void Simulation::changeObject(Object* first, Object* second)
 		}
 	}
 }
+
+int Simulation::checkifGameOver()
+{
+	if (rockObjects == 0 && paperObjects == 0)
+		return SCISSORS_WIN;
+	if (rockObjects == 0 && scissorsObjects == 0)
+		return PAPER_WIN;
+	if (paperObjects == 0 && scissorsObjects == 0)
+		return ROCK_WIN;
+
+	return 0;
+}

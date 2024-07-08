@@ -45,7 +45,7 @@ Window::Window()
 
 bool Window::run()
 {
-	simulation = new Simulation(OBJECT_AMOUNT, OBJECT_AMOUNT, OBJECT_AMOUNT);
+	simulation = new Simulation(0, OBJECT_AMOUNT, OBJECT_AMOUNT);
 	simulation->startSimulation();
 
 	int t1 = SDL_GetTicks();
@@ -57,7 +57,9 @@ bool Window::run()
 		int t2 = SDL_GetTicks();
 		double delta = (t2 - t1) * 0.001;
 		t1 = t2;
-		worldTime += delta;
+
+		if(!simulation->checkifGameOver())
+			worldTime += delta;
 
 		DrawRectangle(screen, 0, 0, 960, 720, ALMOND, ALMOND);
 		
@@ -129,13 +131,47 @@ void Window::handleObjects()
 {
 	for (int i = 0; i < simulation->objects.size(); i++)
 	{
-		simulation->objects[i].move();
-		simulation->checkCollisions(&(simulation->objects[i]), i);
+		if (!checkGameOver())
+		{
+			simulation->objects[i].move();
+			simulation->checkCollisions(&(simulation->objects[i]), i);
+		}
 		DrawSurface(screen, simulation->objects[i].image, simulation->objects[i].xPosition, simulation->objects[i].yPosition);
 
 		char text[128];
 		sprintf(text, "%d", simulation->objects[i].number);
 		DrawRectangle(screen, simulation->objects[i].xPosition - 8, simulation->objects[i].yPosition - 8, 20, 14, NAVY, NAVY);
-		DrawString(screen, simulation->objects[i].xPosition - 5, simulation->objects[i].yPosition - 5, text, charset);
+		int textShift = 0;
+		if (simulation->objects[i].number < 10)
+			textShift += 4;
+		DrawString(screen, simulation->objects[i].xPosition - 5 + textShift, simulation->objects[i].yPosition - 5, text, charset);
 	}
+}
+bool Window::checkGameOver()
+{
+	char text[128];
+	int gameResult = simulation->checkifGameOver();
+
+	if (gameResult != 0)
+	{
+		DrawRectangle(screen, 300, 320, 360, 80, ALMOND, NAVY);
+
+		if (gameResult == ROCK_WIN)
+		{
+			sprintf(text, "R O C K S   W I N !");
+			DrawString(screen, 410, 355, text, charset);
+		}
+		else if (gameResult == PAPER_WIN)
+		{
+			sprintf(text, "P A P E R S   W I N !");
+			DrawString(screen, 400, 355, text, charset);
+		}
+		else if (gameResult == SCISSORS_WIN)
+		{
+			sprintf(text, "S C I S S O R S   W I N !");
+			DrawString(screen, 380, 355, text, charset);
+		}
+		return true;
+	}
+	return false;
 }

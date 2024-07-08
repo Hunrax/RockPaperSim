@@ -20,5 +20,6 @@ private:
 	void quit();
 	void displayTexts(double worldTime);
 	void handleObjects();
+	bool checkGameOver();
 };
 
