@@ -47,7 +47,6 @@ void Simulation::generateObject(enum ObjectType type)
 	}
 	objects.push_back(Object(x, y, type, randomNumber));
 }
-
 void Simulation::startSimulation()
 {
 	srand(time(NULL));
@@ -58,7 +57,6 @@ void Simulation::startSimulation()
 	for (int i = 0; i < scissorsObjects; i++)
 		generateObject(SCISSORS);
 }
-
 void Simulation::checkCollisions(Object* object, int objectIndex)
 {
 	for (int i = objectIndex; i < objects.size(); i++)
@@ -73,14 +71,12 @@ void Simulation::checkCollisions(Object* object, int objectIndex)
 		}
 	}
 }
-
 bool Simulation::IsPointInRect(int pointX, int pointY, int minX, int maxX, int minY, int maxY)
 {
 	if (pointX > minX && pointX < maxX && pointY > minY && pointY < maxY)
 		return true;
 	return false;
 }
-
 bool Simulation::HitboxFunction(int fMiddleX, int fMiddleY, int fSizeX, int fSizeY, int sMiddleX, int sMiddleY, int sSizeX, int sSizeY)
 {
 	if (IsPointInRect(fMiddleX - fSizeX / 2, fMiddleY - fSizeY / 2, sMiddleX - sSizeX / 2, sMiddleX + sSizeX / 2, sMiddleY - sSizeY / 2, sMiddleY + sSizeY / 2))
@@ -94,7 +90,6 @@ bool Simulation::HitboxFunction(int fMiddleX, int fMiddleY, int fSizeX, int fSiz
 
 	return false;
 }
-
 void Simulation::changeObject(Object* first, Object* second)
 {
 	if (first->type == ROCK)
@@ -161,7 +156,6 @@ void Simulation::changeObject(Object* first, Object* second)
 		}
 	}
 }
-
 int Simulation::checkifGameOver()
 {
 	if (rockObjects == 0 && paperObjects == 0)
@@ -173,7 +167,6 @@ int Simulation::checkifGameOver()
 
 	return 0;
 }
-
 Object* Simulation::findMVP()
 {
 	Object* mvp = new Object(0, 0, ROCK, 0);

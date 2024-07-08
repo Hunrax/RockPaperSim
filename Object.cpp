@@ -15,9 +15,7 @@ Object::Object(int x, int y, enum ObjectType objectType, int objectNumber)
 		image = SDL_LoadBMP("./images/scissors.bmp");
 	else if (objectType == ROCK)
 		image = SDL_LoadBMP("./images/rock.bmp");
-
 }
-
 void Object::move()
 {
 	if (direction > 360)
@@ -85,4 +83,13 @@ void Object::move()
 				direction += 90;
 		}
 	}
+}
+std::string Object::typeToString()
+{
+	if (type == PAPER)
+		return "Paper";
+	else if (type == SCISSORS)
+		return "Scissors";
+	else if (type == ROCK)
+		return "Rock";
 }

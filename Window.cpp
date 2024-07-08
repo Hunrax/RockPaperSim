@@ -42,10 +42,9 @@ Window::Window()
 	}
 	SDL_SetColorKey(charset, true, 0x000000);
 }
-
 bool Window::run()
 {
-	simulation = new Simulation(OBJECT_AMOUNT, OBJECT_AMOUNT, OBJECT_AMOUNT);
+	simulation = new Simulation(OBJECT_AMOUNT, 0, OBJECT_AMOUNT);
 	simulation->startSimulation();
 
 	int t1 = SDL_GetTicks();
@@ -88,7 +87,6 @@ bool Window::run()
 	quit();
 	return false;
 }
-
 void Window::quit()
 {
 	if (charset)
@@ -105,7 +103,6 @@ void Window::quit()
 		SDL_DestroyWindow(window);
 	SDL_Quit();
 }
-
 void Window::displayTexts(double worldTime)
 {
 	char text[128];
@@ -126,7 +123,6 @@ void Window::displayTexts(double worldTime)
 	DrawString(screen, 850, 702, text, charset);
 	DrawString(screen, 850, 702, text, charset);
 }
-
 void Window::handleObjects()
 {
 	for (int i = 0; i < simulation->objects.size(); i++)
@@ -150,31 +146,34 @@ void Window::handleObjects()
 bool Window::checkGameOver()
 {
 	char text[128];
+	char mvpText[128];
 	int gameResult = simulation->checkifGameOver();
 
 	if (gameResult != 0)
 	{
 		DrawRectangle(screen, 300, 320, 360, 80, ALMOND, NAVY);
 
+		Object* mvp = simulation->findMVP();
+		sprintf(mvpText, "M V P : %s %d - points: %d", mvp->typeToString().c_str(), mvp->number, mvp->points);
+
 		if (gameResult == ROCK_WIN)
 		{
 			sprintf(text, "R O C K S   W I N !");
 			DrawString(screen, 410, 345, text, charset);
+			DrawString(screen, 375, 365, mvpText, charset);
 		}
 		else if (gameResult == PAPER_WIN)
 		{
 			sprintf(text, "P A P E R S   W I N !");
 			DrawString(screen, 400, 345, text, charset);
+			DrawString(screen, 370, 365, mvpText, charset);
 		}
 		else if (gameResult == SCISSORS_WIN)
 		{
 			sprintf(text, "S C I S S O R S   W I N !");
 			DrawString(screen, 380, 345, text, charset);
+			DrawString(screen, 355, 365, mvpText, charset);
 		}
-		Object* mvp = simulation->findMVP();
-		sprintf(text, "M V P : NUMBER: %d POINTS: %d", mvp->number, mvp->points);
-		DrawString(screen, 370, 365, text, charset);
-
 		return true;
 	}
 	return false;

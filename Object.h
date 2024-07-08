@@ -9,6 +9,7 @@ public:
 	SDL_Surface* image;
 	enum ObjectType type;
 	void move();
+	std::string typeToString();
 };
 enum ObjectType
 {
