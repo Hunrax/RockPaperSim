@@ -8,6 +8,7 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include "windows.h"
 
 extern "C" {
 #include"./SDL2-2.0.10/include/SDL.h"

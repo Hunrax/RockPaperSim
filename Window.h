@@ -19,7 +19,7 @@ private:
 	bool exitGame;
 	void quit();
 	void displayTexts(double worldTime);
-	void handleObjects();
+	void handleObjects(double delta);
 	bool checkGameOver();
 };
 

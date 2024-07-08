@@ -16,8 +16,10 @@ Object::Object(int x, int y, enum ObjectType objectType, int objectNumber)
 	else if (objectType == ROCK)
 		image = SDL_LoadBMP("./images/rock.bmp");
 }
-void Object::move()
+void Object::move(double delta)
 {
+	double speed = 1 * delta * 100;
+
 	if (direction > 360)
 		direction -= 360;
 	if (direction < 0)
@@ -27,8 +29,8 @@ void Object::move()
 	{
 		if (xPosition < SCREEN_WIDTH - (OBJECT_SIZE / 2) && yPosition > (OBJECT_SIZE / 2))
 		{
-			xPosition += 1;
-			yPosition -= 1;
+			xPosition += 1 * speed;
+			yPosition -= 1 * speed;
 		}
 		else
 		{
@@ -42,8 +44,8 @@ void Object::move()
 	{
 		if (xPosition < SCREEN_WIDTH - (OBJECT_SIZE / 2) && yPosition < SCREEN_HEIGHT - (OBJECT_SIZE / 2))
 		{
-			xPosition += 1;
-			yPosition += 1;
+			xPosition += 1 * speed;
+			yPosition += 1 * speed;
 		}
 		else
 		{
@@ -57,8 +59,8 @@ void Object::move()
 	{
 		if (xPosition > (OBJECT_SIZE / 2) && yPosition < SCREEN_HEIGHT - (OBJECT_SIZE / 2))
 		{
-			xPosition -= 1;
-			yPosition += 1;
+			xPosition -= 1 * speed;
+			yPosition += 1 * speed;
 		}
 		else
 		{
@@ -72,8 +74,8 @@ void Object::move()
 	{
 		if (xPosition > (OBJECT_SIZE / 2) && yPosition > (OBJECT_SIZE / 2))
 		{
-			xPosition -= 1;
-			yPosition -= 1;
+			xPosition -= 1 * speed;
+			yPosition -= 1 * speed;
 		}
 		else
 		{

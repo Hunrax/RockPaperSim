@@ -62,7 +62,7 @@ bool Window::run()
 
 		DrawRectangle(screen, 0, 0, 960, 720, ALMOND, ALMOND);
 		
-		handleObjects();
+		handleObjects(delta);
 
 		displayTexts(worldTime);
 
@@ -123,13 +123,14 @@ void Window::displayTexts(double worldTime)
 	DrawString(screen, 850, 702, text, charset);
 	DrawString(screen, 850, 702, text, charset);
 }
-void Window::handleObjects()
+void Window::handleObjects(double delta)
 {
+	//Sleep(1);
 	for (int i = 0; i < simulation->objects.size(); i++)
 	{
 		if (!checkGameOver())
 		{
-			simulation->objects[i].move();
+			simulation->objects[i].move(delta);
 			simulation->checkCollisions(&(simulation->objects[i]), i);
 		}
 		DrawSurface(screen, simulation->objects[i].image, simulation->objects[i].xPosition, simulation->objects[i].yPosition);
