@@ -1,1 +1,5 @@
 .vs/
+x64/Debug/*
+!x64/Debug/SDL2.dll
+x64/Release/*
+!x64/Release/SDL2.dll
