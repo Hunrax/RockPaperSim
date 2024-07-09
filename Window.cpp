@@ -42,12 +42,14 @@ bool Window::run()
 {
 	int t1 = SDL_GetTicks();
 	double worldTime = 0;
+	double timeInMenu = 0;
 
 	while (!exitGame)
 	{	
 		int t2 = SDL_GetTicks();
 		double delta = (t2 - t1) * 0.001;
 		t1 = t2;
+		timeInMenu += delta;
 
 		DrawRectangle(screen, 0, 0, 960, 720, ALMOND, ALMOND);
 		
@@ -61,7 +63,7 @@ bool Window::run()
 		}
 		else
 		{
-			displayMenu();
+			displayMenu(&timeInMenu);
 		}
 
 
@@ -129,82 +131,6 @@ bool Window::run()
 	quit();
 	return false;
 }
-void Window::displayTexts(double worldTime)
-{
-	char text[128];
-	DrawRectangle(screen, 749, 4, 207, 20, ALMOND, NAVY);
-	sprintf(text, "AUTHOR: RADOSLAW GAJEWSKI");
-	DrawString(screen, 755, 10, text, charset);
-
-	DrawRectangle(screen, 4, 4, 120, 20, ALMOND, NAVY);
-	sprintf(text, "TIME: %.1lf s", worldTime);
-	DrawString(screen, 10, 10, text, charset);
-
-	DrawRectangle(screen, 340, 4, 240, 20, ALMOND, NAVY);
-	sprintf(text, "PRESS 'M' TO GO BACK TO MENU");
-	DrawString(screen, 346, 10, text, charset);
-
-	DrawRectangle(screen, 4, 696, 80, 20, ALMOND, NAVY);
-	sprintf(text, "ROCK: %d", simulation->rockObjects);
-	DrawString(screen, 10, 702, text, charset);
-
-	DrawRectangle(screen, 435, 696, 90, 20, ALMOND, NAVY);
-	sprintf(text, "PAPER: %d", simulation->paperObjects);
-	DrawString(screen, 439, 702, text, charset);
-
-	DrawRectangle(screen, 846, 696, 110, 20, ALMOND, NAVY);
-	sprintf(text, "SCISSORS: %d", simulation->scissorsObjects);
-	DrawString(screen, 850, 702, text, charset);
-	DrawString(screen, 850, 702, text, charset);
-}
-void Window::displayMenu()
-{
-	DrawRectangle(screen, 280, 70, 400, 580, NAVY, LIGHT_BLUE);
-
-	char text[128];
-	DrawRectangle(screen, 340, 78, 280, 44, ALMOND, NAVY);
-	sprintf(text, "ROCK PAPER SCISSORS SIMULATION");
-	DrawString(screen, 362, 94, text, charset);
-
-
-	if (!simulation->rockObjectsSet)
-	{
-		DrawRectangle(screen, 338, 176, 284, 48, RED, RED);
-		DrawRectangle(screen, 340, 178, 280, 44, RED, NAVY);
-	}
-	else
-		DrawRectangle(screen, 340, 178, 280, 44, ALMOND, NAVY);
-	sprintf(text, "ENTER THE NUMBER OF ROCKS: %d", simulation->rockObjects);
-	DrawString(screen, 350, 194, text, charset);
-
-	if (simulation->rockObjectsSet && !simulation->paperObjectsSet)
-	{
-		DrawRectangle(screen, 338, 276, 284, 48, RED, RED);
-		DrawRectangle(screen, 340, 278, 280, 44, RED, NAVY);
-	}
-	else
-		DrawRectangle(screen, 340, 278, 280, 44, ALMOND, NAVY);
-	sprintf(text, "ENTER THE NUMBER OF PAPERS: %d", simulation->paperObjects);
-	DrawString(screen, 350, 294, text, charset);
-
-	if (simulation->rockObjectsSet && simulation->paperObjectsSet && !simulation->scissorsObjectsSet)
-	{
-		DrawRectangle(screen, 338, 376, 284, 48, RED, RED);
-		DrawRectangle(screen, 340, 378, 280, 44, RED, NAVY);
-	}
-	else
-		DrawRectangle(screen, 340, 378, 280, 44, ALMOND, NAVY);
-	sprintf(text, "ENTER THE NUMBER OF SCISSORS: %d", simulation->scissorsObjects);
-	DrawString(screen, 350, 394, text, charset);
-
-	DrawRectangle(screen, 340, 550, 280, 44, ALMOND, NAVY);
-	sprintf(text, "PRESS 'S' TO START");
-	DrawString(screen, 408, 566, text, charset);
-
-	DrawRectangle(screen, 340, 600, 280, 40, ALMOND, NAVY);
-	sprintf(text, "AUTHOR: RADOSLAW GAJEWSKI");
-	DrawString(screen, 380, 616, text, charset);
-}
 void Window::handleObjects(double delta)
 {
 	for (int i = 0; i < simulation->objects.size(); i++)
@@ -261,6 +187,141 @@ bool Window::checkGameOver()
 		return true;
 	}
 	return false;
+}
+void Window::displayTexts(double worldTime)
+{
+	char text[128];
+	DrawRectangle(screen, 749, 4, 207, 20, ALMOND, NAVY);
+	sprintf(text, "AUTHOR: RADOSLAW GAJEWSKI");
+	DrawString(screen, 755, 10, text, charset);
+
+	DrawRectangle(screen, 4, 4, 120, 20, ALMOND, NAVY);
+	sprintf(text, "TIME: %.1lf s", worldTime);
+	DrawString(screen, 10, 10, text, charset);
+
+	DrawRectangle(screen, 340, 4, 240, 20, ALMOND, NAVY);
+	sprintf(text, "PRESS 'M' TO GO BACK TO MENU");
+	DrawString(screen, 346, 10, text, charset);
+
+	DrawRectangle(screen, 4, 696, 80, 20, ALMOND, NAVY);
+	sprintf(text, "ROCK: %d", simulation->rockObjects);
+	DrawString(screen, 10, 702, text, charset);
+
+	DrawRectangle(screen, 435, 696, 90, 20, ALMOND, NAVY);
+	sprintf(text, "PAPER: %d", simulation->paperObjects);
+	DrawString(screen, 439, 702, text, charset);
+
+	DrawRectangle(screen, 846, 696, 110, 20, ALMOND, NAVY);
+	sprintf(text, "SCISSORS: %d", simulation->scissorsObjects);
+	DrawString(screen, 850, 702, text, charset);
+	DrawString(screen, 850, 702, text, charset);
+}
+void Window::displayMenu(double* time)
+{
+	DrawRectangle(screen, 280, 70, 400, 580, NAVY, LIGHT_BLUE);
+
+	char text[128];
+	DrawRectangle(screen, 340, 78, 280, 44, ALMOND, NAVY);
+	sprintf(text, "ROCK PAPER SCISSORS SIMULATION");
+	DrawString(screen, 362, 94, text, charset);
+
+	displayParametersSettings(time);
+
+	if (simulation->rockObjectsSet && simulation->paperObjectsSet && simulation->scissorsObjectsSet)
+	{
+		DrawRectangle(screen, 338, 548, 284, 48, RED, RED);
+		DrawRectangle(screen, 340, 550, 280, 44, RED, NAVY);
+
+		if (*time < 0.4)
+			sprintf(text, "");
+		else if (*time >= 0.4 && *time < 1.2)
+			sprintf(text, "PRESS 'S' TO START");
+		else
+		{
+			sprintf(text, "PRESS 'S' TO START");
+			*time = 0.0;
+		}
+	}
+	else
+	{
+		DrawRectangle(screen, 340, 550, 280, 44, ALMOND, NAVY);
+		sprintf(text, "PRESS 'S' TO START");
+	}
+	DrawString(screen, 408, 566, text, charset);
+
+	DrawRectangle(screen, 340, 600, 280, 40, ALMOND, NAVY);
+	sprintf(text, "AUTHOR: RADOSLAW GAJEWSKI");
+	DrawString(screen, 380, 616, text, charset);
+}
+void Window::displayParametersSettings(double* time)
+{
+	char text[128];
+
+	if (!simulation->rockObjectsSet)
+	{
+		DrawRectangle(screen, 338, 176, 284, 48, RED, RED);
+		DrawRectangle(screen, 340, 178, 280, 44, RED, NAVY);
+
+		if (*time < 0.6)
+			sprintf(text, "ENTER THE NUMBER OF ROCKS: %d", simulation->rockObjects);
+		else if (*time >= 0.6 && *time < 1)
+			sprintf(text, "ENTER THE NUMBER OF ROCKS:");
+		else
+		{
+			sprintf(text, "ENTER THE NUMBER OF ROCKS:");
+			*time = 0.0;
+		}
+	}
+	else
+	{
+		DrawRectangle(screen, 340, 178, 280, 44, ALMOND, NAVY);
+		sprintf(text, "ENTER THE NUMBER OF ROCKS: %d", simulation->rockObjects);
+	}
+	DrawString(screen, 350, 194, text, charset);
+
+	if (simulation->rockObjectsSet && !simulation->paperObjectsSet)
+	{
+		DrawRectangle(screen, 338, 276, 284, 48, RED, RED);
+		DrawRectangle(screen, 340, 278, 280, 44, RED, NAVY);
+
+		if (*time < 0.6)
+			sprintf(text, "ENTER THE NUMBER OF PAPERS: %d", simulation->paperObjects);
+		else if (*time >= 0.6 && *time < 1)
+			sprintf(text, "ENTER THE NUMBER OF PAPERS:");
+		else
+		{
+			sprintf(text, "ENTER THE NUMBER OF PAPERS:");
+			*time = 0.0;
+		}
+	}
+	else
+	{
+		DrawRectangle(screen, 340, 278, 280, 44, ALMOND, NAVY);
+		sprintf(text, "ENTER THE NUMBER OF PAPERS: %d", simulation->paperObjects);
+	}
+	DrawString(screen, 350, 294, text, charset);
+
+	if (simulation->rockObjectsSet && simulation->paperObjectsSet && !simulation->scissorsObjectsSet)
+	{
+		DrawRectangle(screen, 338, 376, 284, 48, RED, RED);
+		DrawRectangle(screen, 340, 378, 280, 44, RED, NAVY);
+
+		if (*time < 0.6)
+			sprintf(text, "ENTER THE NUMBER OF SCISSORS: %d", simulation->scissorsObjects);
+		else if (*time >= 0.6 && *time < 1)
+			sprintf(text, "ENTER THE NUMBER OF SCISSORS:");
+		else
+		{
+			sprintf(text, "ENTER THE NUMBER OF SCISSORS:");
+			*time = 0.0;
+		}
+	}
+	else
+	{
+		DrawRectangle(screen, 340, 378, 280, 44, ALMOND, NAVY);
+		sprintf(text, "ENTER THE NUMBER OF SCISSORS: %d", simulation->scissorsObjects);
+	}
+	DrawString(screen, 350, 394, text, charset);
 }
 void Window::quit()
 {

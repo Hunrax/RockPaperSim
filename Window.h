@@ -19,6 +19,7 @@ private:
 	void displayTexts(double worldTime);
 	void handleObjects(double delta);
 	bool checkGameOver();
-	void displayMenu();
+	void displayMenu(double* time);
+	void displayParametersSettings(double* time);
 };
 
