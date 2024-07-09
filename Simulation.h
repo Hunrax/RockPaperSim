@@ -8,6 +8,7 @@ public:
 	bool rockObjectsSet, paperObjectsSet, scissorsObjectsSet;
 	std::vector<Object> objects;
 	bool simulationStarted;
+	double simulationSpeed;
 	Simulation();
 	void startSimulation();
 	void checkCollisions(Object* object, int objectIndex);

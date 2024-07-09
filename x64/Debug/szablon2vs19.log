@@ -1,4 +1,10 @@
-﻿  Window.cpp
+﻿  Simulation.cpp
+C:\Users\Radek\Desktop\RockPaperSim\Simulation.cpp(64,12): warning C4244: "argument": konwersja z "time_t" do "unsigned int", możliwa utrata danych
+C:\Users\Radek\Desktop\RockPaperSim\Simulation.cpp(76,134): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
+C:\Users\Radek\Desktop\RockPaperSim\Simulation.cpp(76,112): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
+C:\Users\Radek\Desktop\RockPaperSim\Simulation.cpp(76,47): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
+C:\Users\Radek\Desktop\RockPaperSim\Simulation.cpp(76,28): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
+  Window.cpp
 C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(143,109): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
 C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(143,75): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
 C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(147,96): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
@@ -36,4 +42,5 @@ C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(315,4): warning C4996: 'sprintf':
 C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(318,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
 C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(325,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
 C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(330,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  Generowanie kodu...
   szablon2vs19.vcxproj -> C:\Users\Radek\Desktop\RockPaperSim\x64\Debug\szablon2vs19.exe

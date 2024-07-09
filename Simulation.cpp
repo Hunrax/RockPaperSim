@@ -10,6 +10,7 @@ Simulation::Simulation()
 	paperObjectsSet = false;
 	scissorsObjectsSet = false;
 
+	simulationSpeed = 1.0;
 	simulationStarted = false;
 }
 void Simulation::generateObject(enum ObjectType type)
@@ -192,13 +193,13 @@ Object* Simulation::findMVP()
 void Simulation::changeSimulationSpeed(int value)
 {
 	if (value == INCREASE_SPEED)
-	{
-		for (int i = 0; i < objects.size(); i++)
-			objects[i].speed *= 1.5;
-	}
+		simulationSpeed *= 1.5;
 	else if (value == DECREASE_SPEED)
-	{
-		for (int i = 0; i < objects.size(); i++)
-			objects[i].speed /= 1.5;
-	}
+		simulationSpeed /= 1.5;
+
+	if (simulationSpeed > 15)
+		simulationSpeed = 15;
+
+	for (int i = 0; i < objects.size(); i++)
+		objects[i].speed = simulationSpeed;
 }

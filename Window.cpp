@@ -83,7 +83,7 @@ bool Window::run()
 					exitGame = true;
 					break;
 				case SDLK_d:
-					if(simulation->simulationStarted && !simulation->checkifGameOver())
+					if(simulation->simulationStarted && !simulation->checkifGameOver() && simulation->simulationSpeed < 15)
 						simulation->changeSimulationSpeed(INCREASE_SPEED);
 					break;
 				case SDLK_a:
@@ -216,7 +216,7 @@ void Window::displayTexts(double worldTime)
 	DrawString(screen, 10, 702, text, charset);
 
 	DrawRectangle(screen, 846, 696, 110, 20, ALMOND, NAVY);
-	sprintf(text, "SPEED: %.2lf", simulation->objects[0].speed);
+	sprintf(text, "SPEED: %.2lf", simulation->simulationSpeed);
 	DrawString(screen, 852, 702, text, charset);
 }
 void Window::displayMenu(double* time)
