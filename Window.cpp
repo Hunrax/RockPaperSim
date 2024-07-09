@@ -83,21 +83,21 @@ bool Window::run()
 					exitGame = true;
 					break;
 				case SDLK_d:
-					if(simulation->simulationStarted)
+					if(simulation->simulationStarted && !simulation->checkifGameOver())
 						simulation->changeSimulationSpeed(INCREASE_SPEED);
 					break;
 				case SDLK_a:
-					if (simulation->simulationStarted)
+					if (simulation->simulationStarted && !simulation->checkifGameOver())
 						simulation->changeSimulationSpeed(DECREASE_SPEED);
 					break;
 				case SDLK_s:
-					if (!simulation->simulationStarted)
+					if (!simulation->simulationStarted && simulation->rockObjectsSet && simulation->paperObjectsSet && simulation->scissorsObjectsSet)
 					{
 						simulation->simulationStarted = true;
 						simulation->startSimulation();
 					}
 					break;
-				case SDLK_m:
+				case SDLK_r:
 					simulation = new Simulation();
 					break;
 				case SDLK_0: case SDLK_1: case SDLK_2: case SDLK_3: case SDLK_4: case SDLK_5: case SDLK_6: case SDLK_7: case SDLK_8: case SDLK_9:
@@ -200,21 +200,24 @@ void Window::displayTexts(double worldTime)
 	DrawString(screen, 10, 10, text, charset);
 
 	DrawRectangle(screen, 340, 4, 240, 20, ALMOND, NAVY);
-	sprintf(text, "PRESS 'M' TO GO BACK TO MENU");
+	sprintf(text, "PRESS 'R' TO GO BACK TO MENU");
 	DrawString(screen, 346, 10, text, charset);
 
-	DrawRectangle(screen, 4, 696, 80, 20, ALMOND, NAVY);
+	DrawRectangle(screen, 4, 646, 80, 20, ALMOND, NAVY);
 	sprintf(text, "ROCK: %d", simulation->rockObjects);
+	DrawString(screen, 10, 652, text, charset);
+
+	DrawRectangle(screen, 4, 671, 90, 20, ALMOND, NAVY);
+	sprintf(text, "PAPER: %d", simulation->paperObjects);
+	DrawString(screen, 10, 677, text, charset);
+
+	DrawRectangle(screen, 4, 696, 110, 20, ALMOND, NAVY);
+	sprintf(text, "SCISSORS: %d", simulation->scissorsObjects);
 	DrawString(screen, 10, 702, text, charset);
 
-	DrawRectangle(screen, 435, 696, 90, 20, ALMOND, NAVY);
-	sprintf(text, "PAPER: %d", simulation->paperObjects);
-	DrawString(screen, 439, 702, text, charset);
-
 	DrawRectangle(screen, 846, 696, 110, 20, ALMOND, NAVY);
-	sprintf(text, "SCISSORS: %d", simulation->scissorsObjects);
-	DrawString(screen, 850, 702, text, charset);
-	DrawString(screen, 850, 702, text, charset);
+	sprintf(text, "SPEED: %.2lf", simulation->objects[0].speed);
+	DrawString(screen, 852, 702, text, charset);
 }
 void Window::displayMenu(double* time)
 {
@@ -259,8 +262,8 @@ void Window::displayParametersSettings(double* time)
 
 	if (!simulation->rockObjectsSet)
 	{
-		DrawRectangle(screen, 338, 176, 284, 48, RED, RED);
-		DrawRectangle(screen, 340, 178, 280, 44, RED, NAVY);
+		DrawRectangle(screen, 338, 252, 284, 48, RED, RED);
+		DrawRectangle(screen, 340, 254, 280, 44, RED, NAVY);
 
 		if (*time < 0.6)
 			sprintf(text, "ENTER THE NUMBER OF ROCKS: %d", simulation->rockObjects);
@@ -274,15 +277,15 @@ void Window::displayParametersSettings(double* time)
 	}
 	else
 	{
-		DrawRectangle(screen, 340, 178, 280, 44, ALMOND, NAVY);
+		DrawRectangle(screen, 340, 254, 280, 44, ALMOND, NAVY);
 		sprintf(text, "ENTER THE NUMBER OF ROCKS: %d", simulation->rockObjects);
 	}
-	DrawString(screen, 350, 194, text, charset);
+	DrawString(screen, 370, 270, text, charset);
 
 	if (simulation->rockObjectsSet && !simulation->paperObjectsSet)
 	{
-		DrawRectangle(screen, 338, 276, 284, 48, RED, RED);
-		DrawRectangle(screen, 340, 278, 280, 44, RED, NAVY);
+		DrawRectangle(screen, 338, 306, 284, 48, RED, RED);
+		DrawRectangle(screen, 340, 308, 280, 44, RED, NAVY);
 
 		if (*time < 0.6)
 			sprintf(text, "ENTER THE NUMBER OF PAPERS: %d", simulation->paperObjects);
@@ -296,15 +299,15 @@ void Window::displayParametersSettings(double* time)
 	}
 	else
 	{
-		DrawRectangle(screen, 340, 278, 280, 44, ALMOND, NAVY);
+		DrawRectangle(screen, 340, 308, 280, 44, ALMOND, NAVY);
 		sprintf(text, "ENTER THE NUMBER OF PAPERS: %d", simulation->paperObjects);
 	}
-	DrawString(screen, 350, 294, text, charset);
+	DrawString(screen, 364, 324, text, charset);
 
 	if (simulation->rockObjectsSet && simulation->paperObjectsSet && !simulation->scissorsObjectsSet)
 	{
-		DrawRectangle(screen, 338, 376, 284, 48, RED, RED);
-		DrawRectangle(screen, 340, 378, 280, 44, RED, NAVY);
+		DrawRectangle(screen, 338, 360, 284, 48, RED, RED);
+		DrawRectangle(screen, 340, 362, 280, 44, RED, NAVY);
 
 		if (*time < 0.6)
 			sprintf(text, "ENTER THE NUMBER OF SCISSORS: %d", simulation->scissorsObjects);
@@ -318,10 +321,14 @@ void Window::displayParametersSettings(double* time)
 	}
 	else
 	{
-		DrawRectangle(screen, 340, 378, 280, 44, ALMOND, NAVY);
+		DrawRectangle(screen, 340, 362, 280, 44, ALMOND, NAVY);
 		sprintf(text, "ENTER THE NUMBER OF SCISSORS: %d", simulation->scissorsObjects);
 	}
-	DrawString(screen, 350, 394, text, charset);
+	DrawString(screen, 356, 378, text, charset);
+
+	DrawRectangle(screen, 340, 500, 280, 44, ALMOND, NAVY);
+	sprintf(text, "PRESS 'R' TO RESET PARAMETERS");
+	DrawString(screen, 365, 516, text, charset);
 }
 void Window::quit()
 {
