@@ -1,0 +1,52 @@
+﻿  Simulation.cpp
+C:\Users\Radek\Desktop\RockPaperSim\Simulation.cpp(64,12): warning C4244: "argument": konwersja z "time_t" do "unsigned int", możliwa utrata danych
+C:\Users\Radek\Desktop\RockPaperSim\Simulation.cpp(76,134): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
+C:\Users\Radek\Desktop\RockPaperSim\Simulation.cpp(76,112): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
+C:\Users\Radek\Desktop\RockPaperSim\Simulation.cpp(76,47): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
+C:\Users\Radek\Desktop\RockPaperSim\Simulation.cpp(76,28): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
+  Window.cpp
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(143,109): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(143,75): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(147,96): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(147,58): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(153,105): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(153,59): warning C4244: "argument": konwersja z "double" do "int", możliwa utrata danych
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(146,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(167,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(171,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(177,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(183,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(195,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(199,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(203,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(207,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(211,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(215,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(219,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(223,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(232,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(243,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(245,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(248,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(255,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(260,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(273,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(275,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(278,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(285,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(295,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(297,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(300,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(307,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(317,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(319,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(322,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(329,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Radek\Desktop\RockPaperSim\Window.cpp(334,2): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  main.cpp
+  Trwa generowanie kodu
+  4 of 144 functions ( 2.8%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    4 functions had inline decision re-evaluated but remain unchanged
+  Zakończono generowanie kodu
+  szablon2vs19.vcxproj -> C:\Users\Radek\Desktop\RockPaperSim\x64\Release\szablon2vs19.exe

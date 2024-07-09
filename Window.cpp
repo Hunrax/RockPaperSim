@@ -138,7 +138,7 @@ void Window::handleObjects(double delta)
 		if (!checkGameOver())
 		{
 			simulation->objects[i].move(delta);
-			simulation->checkCollisions(&(simulation->objects[i]), i);
+			simulation->checkCollisions(&(simulation->objects[i]), i, delta);
 		}
 		DrawSurface(screen, simulation->objects[i].image, simulation->objects[i].xPosition, simulation->objects[i].yPosition);
 
@@ -218,6 +218,10 @@ void Window::displayTexts(double worldTime)
 	DrawRectangle(screen, 846, 696, 110, 20, ALMOND, NAVY);
 	sprintf(text, "SPEED: %.2lf", simulation->simulationSpeed);
 	DrawString(screen, 852, 702, text, charset);
+
+	DrawRectangle(screen, 846, 671, 110, 20, ALMOND, NAVY);
+	sprintf(text, "\030 D      \031 A");							
+	DrawString(screen, 852, 677, text, charset);
 }
 void Window::displayMenu(double* time)
 {

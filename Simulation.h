@@ -11,7 +11,7 @@ public:
 	double simulationSpeed;
 	Simulation();
 	void startSimulation();
-	void checkCollisions(Object* object, int objectIndex);
+	void checkCollisions(Object* object, int objectIndex, double delta);
 	int checkifGameOver();
 	Object* findMVP();
 	void changeSimulationSpeed(int value);

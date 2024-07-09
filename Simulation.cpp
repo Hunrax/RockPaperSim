@@ -69,7 +69,7 @@ void Simulation::startSimulation()
 	for (int i = 0; i < scissorsObjects; i++)
 		generateObject(SCISSORS);
 }
-void Simulation::checkCollisions(Object* object, int objectIndex)
+void Simulation::checkCollisions(Object* object, int objectIndex, double delta)
 {
 	for (int i = objectIndex; i < objects.size(); i++)
 	{
