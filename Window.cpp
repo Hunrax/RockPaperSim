@@ -58,6 +58,7 @@ bool Window::run()
 			if (!simulation->checkifGameOver() && ((simulation->playerMode && simulation->playerMoved) || !simulation->playerMode))
 				worldTime += delta;
 
+			checkGameOver();
 			handleObjects(delta);
 			displayTexts(worldTime);
 		}
@@ -198,6 +199,8 @@ bool Window::checkGameOver()
 
 		Object* mvp = simulation->findMVP();
 		int mvpTextShift = 0;
+
+		sprintf(mvpText, "M V P : %s %d - points: %d", mvp->typeToString().c_str(), mvp->number, mvp->points);
 		if (simulation->playerMode)
 		{
 			if (mvp == simulation->playerControlledObject)
@@ -206,8 +209,6 @@ bool Window::checkGameOver()
 				mvpTextShift = 16;
 			}
 		}
-		else
-			sprintf(mvpText, "M V P : %s %d - points: %d", mvp->typeToString().c_str(), mvp->number, mvp->points);
 			
 		if (gameResult == ROCK_WIN)
 		{
@@ -226,6 +227,11 @@ bool Window::checkGameOver()
 			sprintf(text, "S C I S S O R S   W I N !");
 			DrawString(screen, 380, 345, text, charset);
 			DrawString(screen, 355 - mvpTextShift, 365, mvpText, charset);
+		}
+		else
+		{
+			sprintf(text, "N O T   E N O U G H   O B J E C T S");
+			DrawString(screen, 342, 355, text, charset);
 		}
 		return true;
 	}

@@ -102,9 +102,12 @@ bool Simulation::IsPointInRect(int pointX, int pointY, int minX, int maxX, int m
 }
 void Simulation::drawPlayerControlledObject()
 {
-	int randomNumber = rand() % objects.size();
-	objects[randomNumber].playerControlled = true;
-	playerControlledObject = &objects[randomNumber];
+	if (objects.size() > 0)
+	{
+		int randomNumber = rand() % objects.size();
+		objects[randomNumber].playerControlled = true;
+		playerControlledObject = &objects[randomNumber];
+	}
 }
 bool Simulation::HitboxFunction(int fMiddleX, int fMiddleY, int fSizeX, int fSizeY, int sMiddleX, int sMiddleY, int sSizeX, int sSizeY)
 {
@@ -187,6 +190,8 @@ void Simulation::changeObject(Object* first, Object* second)
 }
 int Simulation::checkifGameOver()
 {
+	if (rockObjects + paperObjects + scissorsObjects < 2)
+		return ZERO_OBJECTS;
 	if (rockObjects == 0 && paperObjects == 0)
 		return SCISSORS_WIN;
 	if (rockObjects == 0 && scissorsObjects == 0)
