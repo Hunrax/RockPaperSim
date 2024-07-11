@@ -12,6 +12,8 @@ Simulation::Simulation()
 
 	simulationSpeed = 1.0;
 	simulationStarted = false;
+	playerMode = false;
+	playerMoved = false;
 }
 void Simulation::generateObject(enum ObjectType type)
 {
@@ -62,12 +64,18 @@ void Simulation::generateObject(enum ObjectType type)
 void Simulation::startSimulation()
 {
 	srand(time(NULL));
+
 	for (int i = 0; i < rockObjects; i++)
 		generateObject(ROCK);
 	for (int i = 0; i < paperObjects; i++)
 		generateObject(PAPER);
 	for (int i = 0; i < scissorsObjects; i++)
 		generateObject(SCISSORS);
+
+	if (playerMode)
+		drawPlayerControlledObject();
+
+	simulationStarted = true;
 }
 void Simulation::checkCollisions(Object* object, int objectIndex, double delta)
 {
@@ -79,6 +87,9 @@ void Simulation::checkCollisions(Object* object, int objectIndex, double delta)
 			objects[i].direction = object->direction;
 			object->direction = tempDirection;
 
+			if (object->direction == objects[i].direction)
+				object->direction -= 90;
+
 			changeObject(object, &(objects[i]));
 		}
 	}
@@ -88,6 +99,12 @@ bool Simulation::IsPointInRect(int pointX, int pointY, int minX, int maxX, int m
 	if (pointX > minX && pointX < maxX && pointY > minY && pointY < maxY)
 		return true;
 	return false;
+}
+void Simulation::drawPlayerControlledObject()
+{
+	int randomNumber = rand() % objects.size();
+	objects[randomNumber].playerControlled = true;
+	playerControlledObject = &objects[randomNumber];
 }
 bool Simulation::HitboxFunction(int fMiddleX, int fMiddleY, int fSizeX, int fSizeY, int sMiddleX, int sMiddleY, int sSizeX, int sSizeY)
 {

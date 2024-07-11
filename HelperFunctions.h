@@ -5,6 +5,7 @@
 #define ALMOND SDL_MapRGB(screen->format, 0xF5, 0xF0, 0xE1)
 #define LIGHT_BLUE SDL_MapRGB(screen->format, 0xAB, 0xDB, 0xE3)
 #define RED SDL_MapRGB(screen->format, 0xD1, 0x04, 0x04)
+#define GREEN SDL_MapRGB(screen->format, 0x0A, 0xCF, 0x8D)
 
 // narysowanie napisu txt na powierzchni screen, zaczynaj¹c od punktu (x, y)
 // charset to bitmapa 128x128 zawieraj¹ca znaki

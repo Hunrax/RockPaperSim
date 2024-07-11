@@ -55,7 +55,7 @@ bool Window::run()
 		
 		if (simulation->simulationStarted)
 		{
-			if (!simulation->checkifGameOver())
+			if (!simulation->checkifGameOver() && ((simulation->playerMode && simulation->playerMoved) || !simulation->playerMode))
 				worldTime += delta;
 
 			handleObjects(delta);
@@ -65,7 +65,6 @@ bool Window::run()
 		{
 			displayMenu(&timeInMenu);
 		}
-
 
 		SDL_UpdateTexture(scrtex, NULL, screen->pixels, screen->pitch);
 		SDL_RenderCopy(renderer, scrtex, NULL, NULL);
@@ -83,7 +82,7 @@ bool Window::run()
 					exitGame = true;
 					break;
 				case SDLK_d:
-					if(simulation->simulationStarted && !simulation->checkifGameOver() && simulation->simulationSpeed < 15)
+					if (simulation->simulationStarted && !simulation->checkifGameOver() && simulation->simulationSpeed < 15)
 						simulation->changeSimulationSpeed(INCREASE_SPEED);
 					break;
 				case SDLK_a:
@@ -92,13 +91,15 @@ bool Window::run()
 					break;
 				case SDLK_s:
 					if (!simulation->simulationStarted && simulation->rockObjectsSet && simulation->paperObjectsSet && simulation->scissorsObjectsSet)
-					{
-						simulation->simulationStarted = true;
 						simulation->startSimulation();
-					}
 					break;
 				case SDLK_r:
 					simulation = new Simulation();
+					worldTime = 0;
+					break;
+				case SDLK_p:
+					if(!simulation->simulationStarted)
+						simulation->playerMode = !simulation->playerMode;
 					break;
 				case SDLK_0: case SDLK_1: case SDLK_2: case SDLK_3: case SDLK_4: case SDLK_5: case SDLK_6: case SDLK_7: case SDLK_8: case SDLK_9:
 					if (!simulation->simulationStarted)
@@ -121,10 +122,38 @@ bool Window::run()
 					}
 					break;
 				}
-
 			case SDL_WINDOWEVENT:
 				if (event.window.event == SDL_WINDOWEVENT_CLOSE)
 					exitGame = true;
+			}
+		}
+		const Uint8* keyboardStateArray = SDL_GetKeyboardState(NULL);
+		SDL_PollEvent(&event);
+
+		if (event.type == SDL_KEYDOWN || event.type == SDL_KEYUP)
+		{
+			if (!simulation->playerMoved && (keyboardStateArray[SDL_SCANCODE_UP] || keyboardStateArray[SDL_SCANCODE_DOWN] || keyboardStateArray[SDL_SCANCODE_LEFT] || keyboardStateArray[SDL_SCANCODE_RIGHT]))
+				simulation->playerMoved = true;
+
+			if (keyboardStateArray[SDL_SCANCODE_UP] && !(keyboardStateArray[SDL_SCANCODE_DOWN]))
+			{
+				if (simulation->playerMode && simulation->simulationStarted && !simulation->checkifGameOver())
+					simulation->playerControlledObject->move(delta, UP);
+			}
+			else if (keyboardStateArray[SDL_SCANCODE_DOWN] && !keyboardStateArray[SDL_SCANCODE_UP])
+			{
+				if (simulation->playerMode && simulation->simulationStarted && !simulation->checkifGameOver())
+					simulation->playerControlledObject->move(delta, DOWN);
+			}
+			if (keyboardStateArray[SDL_SCANCODE_RIGHT] && !keyboardStateArray[SDL_SCANCODE_LEFT])
+			{
+				if (simulation->playerMode && simulation->simulationStarted && !simulation->checkifGameOver())
+					simulation->playerControlledObject->move(delta, RIGHT);
+			}
+			else if (keyboardStateArray[SDL_SCANCODE_LEFT] && !keyboardStateArray[SDL_SCANCODE_RIGHT])
+			{
+				if (simulation->playerMode && simulation->simulationStarted && !simulation->checkifGameOver())
+					simulation->playerControlledObject->move(delta, LEFT);
 			}
 		}
 	}
@@ -137,14 +166,18 @@ void Window::handleObjects(double delta)
 	{
 		if (!checkGameOver())
 		{
-			simulation->objects[i].move(delta);
 			simulation->checkCollisions(&(simulation->objects[i]), i, delta);
+			if((!simulation->objects[i].playerControlled && simulation->playerMoved) || !simulation->playerMode)
+				simulation->objects[i].move(delta, NONE);
 		}
 		DrawSurface(screen, simulation->objects[i].image, simulation->objects[i].xPosition, simulation->objects[i].yPosition);
 
 		char text[128];
 		sprintf(text, "%d", simulation->objects[i].number);
-		DrawRectangle(screen, simulation->objects[i].xPosition - 8, simulation->objects[i].yPosition - 8, 20, 14, NAVY, NAVY);
+		if(!simulation->objects[i].playerControlled)
+			DrawRectangle(screen, simulation->objects[i].xPosition - 8, simulation->objects[i].yPosition - 8, 20, 14, NAVY, NAVY);
+		else
+			DrawRectangle(screen, simulation->objects[i].xPosition - 8, simulation->objects[i].yPosition - 8, 20, 14, GREEN, GREEN);
 
 		int textShift = 0;
 		if (simulation->objects[i].number < 10)
@@ -164,25 +197,35 @@ bool Window::checkGameOver()
 		DrawRectangle(screen, 300, 320, 360, 80, ALMOND, NAVY);
 
 		Object* mvp = simulation->findMVP();
-		sprintf(mvpText, "M V P : %s %d - points: %d", mvp->typeToString().c_str(), mvp->number, mvp->points);
-
+		int mvpTextShift = 0;
+		if (simulation->playerMode)
+		{
+			if (mvp == simulation->playerControlledObject)
+			{
+				sprintf(mvpText, "M V P : %s %d (you) - points: %d", mvp->typeToString().c_str(), mvp->number, mvp->points);
+				mvpTextShift = 16;
+			}
+		}
+		else
+			sprintf(mvpText, "M V P : %s %d - points: %d", mvp->typeToString().c_str(), mvp->number, mvp->points);
+			
 		if (gameResult == ROCK_WIN)
 		{
 			sprintf(text, "R O C K S   W I N !");
 			DrawString(screen, 410, 345, text, charset);
-			DrawString(screen, 375, 365, mvpText, charset);
+			DrawString(screen, 375 - mvpTextShift, 365, mvpText, charset);
 		}
 		else if (gameResult == PAPER_WIN)
 		{
 			sprintf(text, "P A P E R S   W I N !");
 			DrawString(screen, 400, 345, text, charset);
-			DrawString(screen, 370, 365, mvpText, charset);
+			DrawString(screen, 370 - mvpTextShift, 365, mvpText, charset);
 		}
 		else if (gameResult == SCISSORS_WIN)
 		{
 			sprintf(text, "S C I S S O R S   W I N !");
 			DrawString(screen, 380, 345, text, charset);
-			DrawString(screen, 355, 365, mvpText, charset);
+			DrawString(screen, 355 - mvpTextShift, 365, mvpText, charset);
 		}
 		return true;
 	}
@@ -329,6 +372,13 @@ void Window::displayParametersSettings(double* time)
 		sprintf(text, "ENTER THE NUMBER OF SCISSORS: %d", simulation->scissorsObjects);
 	}
 	DrawString(screen, 356, 378, text, charset);
+
+	DrawRectangle(screen, 300, 450, 360, 44, ALMOND, NAVY);
+	if(!simulation->playerMode)
+		sprintf(text, "PRESS 'P' TO PLAY AS ONE OF THE OBJECTS: OFF");
+	else
+		sprintf(text, "PRESS 'P' TO PLAY AS ONE OF THE OBJECTS: ON");
+	DrawString(screen, 306, 466, text, charset);
 
 	DrawRectangle(screen, 340, 500, 280, 44, ALMOND, NAVY);
 	sprintf(text, "PRESS 'R' TO RESET PARAMETERS");

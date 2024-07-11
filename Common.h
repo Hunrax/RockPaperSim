@@ -26,3 +26,9 @@ extern "C" {
 #define DECREASE_SPEED 0
 #define INCREASE_SPEED 10
 
+#define RIGHT 'r'
+#define LEFT 'l'
+#define UP 'u'
+#define DOWN 'd'
+#define NONE 'n'
+

@@ -9,6 +9,7 @@ Object::Object(int x, int y, enum ObjectType objectType, int objectNumber)
 	number = objectNumber;
 	points = 0;
 	speed = 1.0;
+	playerControlled = false;
 
 	if (objectType == PAPER)
 		image = SDL_LoadBMP("./images/paper.bmp");
@@ -17,74 +18,89 @@ Object::Object(int x, int y, enum ObjectType objectType, int objectNumber)
 	else if (objectType == ROCK)
 		image = SDL_LoadBMP("./images/rock.bmp");
 }
-void Object::move(double delta)
+void Object::move(double delta, char playerDirection)
 {
 	double finalSpeed = 1 * delta * 100 * speed;
 
-	if (direction > 360)
-		direction -= 360;
-	if (direction < 0)
-		direction += 360;
+	if (!playerControlled)
+	{
+		if (direction > 360)
+			direction -= 360;
+		if (direction < 0)
+			direction += 360;
 
-	if (direction == 45)
-	{
-		if (xPosition < SCREEN_WIDTH - (OBJECT_SIZE / 2) && yPosition > (OBJECT_SIZE / 2))
+		if (direction == 45)
 		{
-			xPosition += 1 * finalSpeed;
-			yPosition -= 1 * finalSpeed;
-		}
-		else
-		{
-			if (xPosition >= SCREEN_WIDTH - (OBJECT_SIZE / 2))
-				direction -= 90;
+			if (xPosition < SCREEN_WIDTH - (OBJECT_SIZE / 2) && yPosition >(OBJECT_SIZE / 2))
+			{
+				xPosition += 1 * finalSpeed;
+				yPosition -= 1 * finalSpeed;
+			}
 			else
-				direction += 90;
+			{
+				if (xPosition >= SCREEN_WIDTH - (OBJECT_SIZE / 2))
+					direction -= 90;
+				else
+					direction += 90;
+			}
+		}
+		else if (direction == 135)
+		{
+			if (xPosition < SCREEN_WIDTH - (OBJECT_SIZE / 2) && yPosition < SCREEN_HEIGHT - (OBJECT_SIZE / 2))
+			{
+				xPosition += 1 * finalSpeed;
+				yPosition += 1 * finalSpeed;
+			}
+			else
+			{
+				if (xPosition >= SCREEN_WIDTH - (OBJECT_SIZE / 2))
+					direction += 90;
+				else
+					direction -= 90;
+			}
+		}
+		else if (direction == 225)
+		{
+			if (xPosition > (OBJECT_SIZE / 2) && yPosition < SCREEN_HEIGHT - (OBJECT_SIZE / 2))
+			{
+				xPosition -= 1 * finalSpeed;
+				yPosition += 1 * finalSpeed;
+			}
+			else
+			{
+				if (yPosition >= SCREEN_HEIGHT - (OBJECT_SIZE / 2))
+					direction += 90;
+				else
+					direction -= 90;
+			}
+		}
+		else if (direction == 315)
+		{
+			if (xPosition > (OBJECT_SIZE / 2) && yPosition > (OBJECT_SIZE / 2))
+			{
+				xPosition -= 1 * finalSpeed;
+				yPosition -= 1 * finalSpeed;
+			}
+			else
+			{
+				if (yPosition <= OBJECT_SIZE / 2)
+					direction -= 90;
+				else
+					direction += 90;
+			}
 		}
 	}
-	else if (direction == 135)
+	else
 	{
-		if (xPosition < SCREEN_WIDTH - (OBJECT_SIZE / 2) && yPosition < SCREEN_HEIGHT - (OBJECT_SIZE / 2))
-		{
-			xPosition += 1 * finalSpeed;
-			yPosition += 1 * finalSpeed;
-		}
-		else
-		{
-			if (xPosition >= SCREEN_WIDTH - (OBJECT_SIZE / 2))
-				direction += 90;
-			else
-				direction -= 90;
-		}
-	}
-	else if (direction == 225)
-	{
-		if (xPosition > (OBJECT_SIZE / 2) && yPosition < SCREEN_HEIGHT - (OBJECT_SIZE / 2))
-		{
-			xPosition -= 1 * finalSpeed;
-			yPosition += 1 * finalSpeed;
-		}
-		else
-		{
-			if (yPosition >= SCREEN_HEIGHT - (OBJECT_SIZE / 2))
-				direction += 90;
-			else
-				direction -= 90;
-		}
-	}
-	else if (direction == 315)
-	{
-		if (xPosition > (OBJECT_SIZE / 2) && yPosition > (OBJECT_SIZE / 2))
-		{
-			xPosition -= 1 * finalSpeed;
-			yPosition -= 1 * finalSpeed;
-		}
-		else
-		{
-			if (yPosition <= OBJECT_SIZE / 2)
-				direction -= 90;
-			else
-				direction += 90;
-		}
+		if (playerDirection == RIGHT && xPosition < SCREEN_WIDTH - (OBJECT_SIZE / 2))
+			xPosition += 2 * finalSpeed;
+		else if (playerDirection == LEFT && xPosition > (OBJECT_SIZE / 2))
+			xPosition -= 2 * finalSpeed;
+
+		if (playerDirection == DOWN && yPosition < SCREEN_HEIGHT - (OBJECT_SIZE / 2))
+			yPosition += 2 * finalSpeed;
+		else if (playerDirection == UP && yPosition > (OBJECT_SIZE / 2))
+			yPosition -= 2 * finalSpeed;
 	}
 }
 std::string Object::typeToString()

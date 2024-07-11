@@ -7,14 +7,16 @@ public:
 	int rockObjects, paperObjects, scissorsObjects;
 	bool rockObjectsSet, paperObjectsSet, scissorsObjectsSet;
 	std::vector<Object> objects;
-	bool simulationStarted;
+	bool simulationStarted, playerMode, playerMoved;
 	double simulationSpeed;
+	Object* playerControlledObject;
 	Simulation();
 	void startSimulation();
 	void checkCollisions(Object* object, int objectIndex, double delta);
 	int checkifGameOver();
 	Object* findMVP();
 	void changeSimulationSpeed(int value);
+	void drawPlayerControlledObject();
 private:
 	void generateObject(enum ObjectType type);
 	bool HitboxFunction(int fMiddleX, int fMiddleY, int fSizeX, int fSizeY, int sMiddleX, int sMiddleY, int sSizeX, int sSizeY);
