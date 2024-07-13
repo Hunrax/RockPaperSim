@@ -271,6 +271,21 @@ void Window::displayTexts(double worldTime)
 	DrawRectangle(screen, 846, 671, 110, 20, ALMOND, NAVY);
 	sprintf(text, "\030 D      \031 A");							
 	DrawString(screen, 852, 677, text, charset);
+
+	if (simulation->playerMode)
+	{
+		DrawRectangle(screen, 416, 650, 140, 66, ALMOND, NAVY);
+		sprintf(text, "MOVEMENT");
+		DrawString(screen, 450, 660, text, charset);
+		sprintf(text, "\030");							// strzalka w gore
+		DrawString(screen, 486, 675, text, charset);
+		sprintf(text, "\032");							// strzalka w prawo
+		DrawString(screen, 466, 685, text, charset);
+		sprintf(text, "\031");							// strzalka w dol
+		DrawString(screen, 486, 700, text, charset);
+		sprintf(text, "\033 ");							// strzalka w lewo
+		DrawString(screen, 506, 685, text, charset);
+	}
 }
 void Window::displayMenu(double* time)
 {
@@ -379,11 +394,19 @@ void Window::displayParametersSettings(double* time)
 	}
 	DrawString(screen, 356, 378, text, charset);
 
-	DrawRectangle(screen, 300, 450, 360, 44, ALMOND, NAVY);
-	if(!simulation->playerMode)
+
+	if (!simulation->playerMode)
+	{
 		sprintf(text, "PRESS 'P' TO PLAY AS ONE OF THE OBJECTS: OFF");
+		DrawRectangle(screen, 298, 448, 364, 48, RED, RED);
+		DrawRectangle(screen, 300, 450, 360, 44, RED, NAVY);
+	}
 	else
+	{
 		sprintf(text, "PRESS 'P' TO PLAY AS ONE OF THE OBJECTS: ON");
+		DrawRectangle(screen, 298, 448, 364, 48, GREEN, GREEN);
+		DrawRectangle(screen, 300, 450, 360, 44, GREEN, NAVY);
+	}
 	DrawString(screen, 306, 466, text, charset);
 
 	DrawRectangle(screen, 340, 500, 280, 44, ALMOND, NAVY);
