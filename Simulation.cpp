@@ -130,7 +130,9 @@ void Simulation::changeObject(Object* first, Object* second)
 		{
 			first->type = PAPER;
 			first->image = SDL_LoadBMP("./images/paper.bmp");
+
 			second->points++;
+			first->points--;
 
 			rockObjects--;
 			paperObjects++;
@@ -139,7 +141,9 @@ void Simulation::changeObject(Object* first, Object* second)
 		{
 			second->type = ROCK;
 			second->image = SDL_LoadBMP("./images/rock.bmp");
+
 			first->points++;
+			second->points--;
 
 			scissorsObjects--;
 			rockObjects++;
@@ -151,7 +155,9 @@ void Simulation::changeObject(Object* first, Object* second)
 		{
 			first->type = SCISSORS;
 			first->image = SDL_LoadBMP("./images/scissors.bmp");
+
 			second->points++;
+			first->points--;
 
 			paperObjects--;
 			scissorsObjects++;
@@ -160,7 +166,9 @@ void Simulation::changeObject(Object* first, Object* second)
 		{
 			second->type = PAPER;
 			second->image = SDL_LoadBMP("./images/paper.bmp");
+
 			first->points++;
+			second->points--;
 
 			rockObjects--;
 			paperObjects++;
@@ -172,7 +180,9 @@ void Simulation::changeObject(Object* first, Object* second)
 		{
 			second->type = SCISSORS;
 			second->image = SDL_LoadBMP("./images/scissors.bmp");
+
 			first->points++;
+			second->points--;
 
 			paperObjects--;
 			scissorsObjects++;
@@ -181,7 +191,9 @@ void Simulation::changeObject(Object* first, Object* second)
 		{
 			first->type = ROCK;
 			first->image = SDL_LoadBMP("./images/rock.bmp");
+
 			second->points++;
+			first->points--;
 
 			scissorsObjects--;
 			rockObjects++;

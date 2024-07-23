@@ -277,13 +277,13 @@ void Window::displayTexts(double worldTime)
 		DrawRectangle(screen, 416, 650, 140, 66, ALMOND, NAVY);
 		sprintf(text, "MOVEMENT");
 		DrawString(screen, 450, 660, text, charset);
-		sprintf(text, "\030");							// strzalka w gore
+		sprintf(text, "\030");						
 		DrawString(screen, 486, 675, text, charset);
-		sprintf(text, "\032");							// strzalka w prawo
+		sprintf(text, "\032");						
 		DrawString(screen, 466, 685, text, charset);
-		sprintf(text, "\031");							// strzalka w dol
+		sprintf(text, "\031");							
 		DrawString(screen, 486, 700, text, charset);
-		sprintf(text, "\033 ");							// strzalka w lewo
+		sprintf(text, "\033 ");							
 		DrawString(screen, 506, 685, text, charset);
 	}
 }
