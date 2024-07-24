@@ -248,6 +248,13 @@ void Window::displayTexts(double worldTime)
 	sprintf(text, "TIME: %.1lf s", worldTime);
 	DrawString(screen, 10, 10, text, charset);
 
+	if (simulation->playerMode)
+	{
+		DrawRectangle(screen, 4, 29, 100, 20, ALMOND, NAVY);
+		sprintf(text, "POINTS: %d", simulation->playerControlledObject->points);
+		DrawString(screen, 10, 35, text, charset);
+	}
+
 	DrawRectangle(screen, 340, 4, 240, 20, ALMOND, NAVY);
 	sprintf(text, "PRESS 'R' TO GO BACK TO MENU");
 	DrawString(screen, 346, 10, text, charset);
