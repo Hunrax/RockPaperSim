@@ -21,7 +21,7 @@ private:
 	bool checkGameOver();
 	void displayMenu(double* time);
 	void displayParametersSettings(double* time);
-	void handleEvents(SDL_Event event, double worldTime);
+	void handleEvents(SDL_Event event, double* worldTime);
 	void handlePlayerMovement(SDL_Event event, double delta);
 };
 

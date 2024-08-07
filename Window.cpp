@@ -74,7 +74,7 @@ bool Window::run()
 		SDL_Event event;
 		while (SDL_PollEvent(&event))
 		{
-			handleEvents(event, worldTime);
+			handleEvents(event, &worldTime);
 		}
 		handlePlayerMovement(event, delta);
 		
@@ -342,7 +342,7 @@ void Window::displayParametersSettings(double* time)
 	sprintf(text, "PRESS 'R' TO RESET PARAMETERS");
 	DrawString(screen, 365, 516, text, charset);
 }
-void Window::handleEvents(SDL_Event event, double worldTime)
+void Window::handleEvents(SDL_Event event, double* worldTime)
 {
 	switch (event.type)
 	{
@@ -366,7 +366,7 @@ void Window::handleEvents(SDL_Event event, double worldTime)
 			break;
 		case SDLK_r:
 			simulation = new Simulation();
-			worldTime = 0;
+			*worldTime = 0;
 			break;
 		case SDLK_p:
 			if (!simulation->simulationStarted)
