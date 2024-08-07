@@ -2,9 +2,9 @@
 
 <h1> <img height="40" src="/images/png/rock.png"/> RockPaperSim <img height="40" src="/images/png/rock.png"/> </h1> 
 
-<h1> <img height="40" src="/images/png/paper.png"/> <i>Author: Radosław Gajewski</i> <img height="40" src="/images/png/paper.png"/> </h2> 
+<h1> <img height="40" src="/images/png/paper.png"/> <i>Author: Radosław Gajewski</i> <img height="40" src="/images/png/paper.png"/> </h1> 
 
-<h2> <img height="40" src="/images/png/scissors.png"/> Rock Paper Scissors Simulation - rocks, papers and scissors moving and bouncing around the map <img height="40" src="/images/png/scissors.png"/> </h3>
+<h3> <img height="40" src="/images/png/scissors.png"/> Rock Paper Scissors Simulation - rocks, papers and scissors moving and bouncing around the map <img height="40" src="/images/png/scissors.png"/> </h3>
 
 </div>
 
