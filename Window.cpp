@@ -74,89 +74,10 @@ bool Window::run()
 		SDL_Event event;
 		while (SDL_PollEvent(&event))
 		{
-			switch (event.type)
-			{
-			case SDL_KEYDOWN:
-				switch (event.key.keysym.sym)
-				{
-				case SDLK_ESCAPE:
-					exitGame = true;
-					break;
-				case SDLK_d:
-					if (simulation->simulationStarted && !simulation->checkifGameOver() && simulation->simulationSpeed < 15)
-						simulation->changeSimulationSpeed(INCREASE_SPEED);
-					break;
-				case SDLK_a:
-					if (simulation->simulationStarted && !simulation->checkifGameOver())
-						simulation->changeSimulationSpeed(DECREASE_SPEED);
-					break;
-				case SDLK_s:
-					if (!simulation->simulationStarted && simulation->rockObjectsSet && simulation->paperObjectsSet && simulation->scissorsObjectsSet)
-						simulation->startSimulation();
-					break;
-				case SDLK_r:
-					simulation = new Simulation();
-					worldTime = 0;
-					break;
-				case SDLK_p:
-					if(!simulation->simulationStarted)
-						simulation->playerMode = !simulation->playerMode;
-					break;
-				case SDLK_0: case SDLK_1: case SDLK_2: case SDLK_3: case SDLK_4: case SDLK_5: case SDLK_6: case SDLK_7: case SDLK_8: case SDLK_9:
-					if (!simulation->simulationStarted)
-					{
-						if (!simulation->rockObjectsSet)
-						{
-							simulation->rockObjects = event.key.keysym.sym - '0';
-							simulation->rockObjectsSet = true;
-						}
-						else if (!simulation->paperObjectsSet)
-						{
-							simulation->paperObjects = event.key.keysym.sym - '0';
-							simulation->paperObjectsSet = true;
-						}
-						else if (!simulation->scissorsObjectsSet)
-						{
-							simulation->scissorsObjects = event.key.keysym.sym - '0';
-							simulation->scissorsObjectsSet = true;
-						}
-					}
-					break;
-				}
-			case SDL_WINDOWEVENT:
-				if (event.window.event == SDL_WINDOWEVENT_CLOSE)
-					exitGame = true;
-			}
+			handleEvents(event, worldTime);
 		}
-		const Uint8* keyboardStateArray = SDL_GetKeyboardState(NULL);
-		SDL_PollEvent(&event);
-
-		if (event.type == SDL_KEYDOWN || event.type == SDL_KEYUP)
-		{
-			if (!simulation->playerMoved && (keyboardStateArray[SDL_SCANCODE_UP] || keyboardStateArray[SDL_SCANCODE_DOWN] || keyboardStateArray[SDL_SCANCODE_LEFT] || keyboardStateArray[SDL_SCANCODE_RIGHT]))
-				simulation->playerMoved = true;
-
-			if (keyboardStateArray[SDL_SCANCODE_UP] && !(keyboardStateArray[SDL_SCANCODE_DOWN]))
-			{
-				if (simulation->playerMode && simulation->simulationStarted && !simulation->checkifGameOver())
-					simulation->playerControlledObject->move(delta, UP);
-			}
-			else if (keyboardStateArray[SDL_SCANCODE_DOWN] && !keyboardStateArray[SDL_SCANCODE_UP])
-			{
-				if (simulation->playerMode && simulation->simulationStarted && !simulation->checkifGameOver())
-					simulation->playerControlledObject->move(delta, DOWN);
-			}
-			if (keyboardStateArray[SDL_SCANCODE_RIGHT] && !keyboardStateArray[SDL_SCANCODE_LEFT])
-			{
-				if (simulation->playerMode && simulation->simulationStarted && !simulation->checkifGameOver())
-					simulation->playerControlledObject->move(delta, RIGHT);
-			}
-			else if (keyboardStateArray[SDL_SCANCODE_LEFT] && !keyboardStateArray[SDL_SCANCODE_RIGHT])
-			{
-				if (simulation->playerMode && simulation->simulationStarted && !simulation->checkifGameOver())
-					simulation->playerControlledObject->move(delta, LEFT);
-			}
-		}
+		handlePlayerMovement(event, delta);
+		
 	}
 	quit();
 	return false;
@@ -401,24 +322,113 @@ void Window::displayParametersSettings(double* time)
 	}
 	DrawString(screen, 356, 378, text, charset);
 
-
-	if (!simulation->playerMode)
+	Uint32 color;
+	if (simulation->playerMode)
 	{
-		sprintf(text, "PRESS 'P' TO PLAY AS ONE OF THE OBJECTS: OFF");
-		DrawRectangle(screen, 298, 448, 364, 48, RED, RED);
-		DrawRectangle(screen, 300, 450, 360, 44, RED, NAVY);
+		color = GREEN;
+		sprintf(text, "PRESS 'P' TO PLAY AS ONE OF THE OBJECTS: ON");
 	}
 	else
 	{
-		sprintf(text, "PRESS 'P' TO PLAY AS ONE OF THE OBJECTS: ON");
-		DrawRectangle(screen, 298, 448, 364, 48, GREEN, GREEN);
-		DrawRectangle(screen, 300, 450, 360, 44, GREEN, NAVY);
+		color = RED;
+		sprintf(text, "PRESS 'P' TO PLAY AS ONE OF THE OBJECTS: OFF");
 	}
+	DrawRectangle(screen, 298, 448, 364, 48, color, color);
+	DrawRectangle(screen, 300, 450, 360, 44, color, NAVY);
+
 	DrawString(screen, 306, 466, text, charset);
 
 	DrawRectangle(screen, 340, 500, 280, 44, ALMOND, NAVY);
 	sprintf(text, "PRESS 'R' TO RESET PARAMETERS");
 	DrawString(screen, 365, 516, text, charset);
+}
+void Window::handleEvents(SDL_Event event, double worldTime)
+{
+	switch (event.type)
+	{
+	case SDL_KEYDOWN:
+		switch (event.key.keysym.sym)
+		{
+		case SDLK_ESCAPE:
+			exitGame = true;
+			break;
+		case SDLK_d:
+			if (simulation->simulationStarted && !simulation->checkifGameOver() && simulation->simulationSpeed < 15)
+				simulation->changeSimulationSpeed(INCREASE_SPEED);
+			break;
+		case SDLK_a:
+			if (simulation->simulationStarted && !simulation->checkifGameOver())
+				simulation->changeSimulationSpeed(DECREASE_SPEED);
+			break;
+		case SDLK_s:
+			if (!simulation->simulationStarted && simulation->rockObjectsSet && simulation->paperObjectsSet && simulation->scissorsObjectsSet)
+				simulation->startSimulation();
+			break;
+		case SDLK_r:
+			simulation = new Simulation();
+			worldTime = 0;
+			break;
+		case SDLK_p:
+			if (!simulation->simulationStarted)
+				simulation->playerMode = !simulation->playerMode;
+			break;
+		case SDLK_0: case SDLK_1: case SDLK_2: case SDLK_3: case SDLK_4: case SDLK_5: case SDLK_6: case SDLK_7: case SDLK_8: case SDLK_9:
+			if (!simulation->simulationStarted)
+			{
+				if (!simulation->rockObjectsSet)
+				{
+					simulation->rockObjects = event.key.keysym.sym - '0';
+					simulation->rockObjectsSet = true;
+				}
+				else if (!simulation->paperObjectsSet)
+				{
+					simulation->paperObjects = event.key.keysym.sym - '0';
+					simulation->paperObjectsSet = true;
+				}
+				else if (!simulation->scissorsObjectsSet)
+				{
+					simulation->scissorsObjects = event.key.keysym.sym - '0';
+					simulation->scissorsObjectsSet = true;
+				}
+			}
+			break;
+		}
+	case SDL_WINDOWEVENT:
+		if (event.window.event == SDL_WINDOWEVENT_CLOSE)
+			exitGame = true;
+	}
+}
+void Window::handlePlayerMovement(SDL_Event event, double delta)
+{
+	const Uint8* keyboardStateArray = SDL_GetKeyboardState(NULL);
+	SDL_PollEvent(&event);
+
+	if (event.type == SDL_KEYDOWN || event.type == SDL_KEYUP)
+	{
+		if (!simulation->playerMoved && (keyboardStateArray[SDL_SCANCODE_UP] || keyboardStateArray[SDL_SCANCODE_DOWN] || keyboardStateArray[SDL_SCANCODE_LEFT] || keyboardStateArray[SDL_SCANCODE_RIGHT]))
+			simulation->playerMoved = true;
+
+		if (keyboardStateArray[SDL_SCANCODE_UP] && !(keyboardStateArray[SDL_SCANCODE_DOWN]))
+		{
+			if (simulation->playerMode && simulation->simulationStarted && !simulation->checkifGameOver())
+				simulation->playerControlledObject->move(delta, UP);
+		}
+		else if (keyboardStateArray[SDL_SCANCODE_DOWN] && !keyboardStateArray[SDL_SCANCODE_UP])
+		{
+			if (simulation->playerMode && simulation->simulationStarted && !simulation->checkifGameOver())
+				simulation->playerControlledObject->move(delta, DOWN);
+		}
+		if (keyboardStateArray[SDL_SCANCODE_RIGHT] && !keyboardStateArray[SDL_SCANCODE_LEFT])
+		{
+			if (simulation->playerMode && simulation->simulationStarted && !simulation->checkifGameOver())
+				simulation->playerControlledObject->move(delta, RIGHT);
+		}
+		else if (keyboardStateArray[SDL_SCANCODE_LEFT] && !keyboardStateArray[SDL_SCANCODE_RIGHT])
+		{
+			if (simulation->playerMode && simulation->simulationStarted && !simulation->checkifGameOver())
+				simulation->playerControlledObject->move(delta, LEFT);
+		}
+	}
 }
 void Window::quit()
 {
